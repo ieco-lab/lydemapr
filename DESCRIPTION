@@ -6,8 +6,7 @@ Authors@R: c(
     person("Seba", "De Bona", email = "sebastiano.debona@temple.edu", role = "cre"),
     person("Matt", "Helmus", email = "mrhelmus@temple.edu", role = "aut"))
 Maintainer: Seba De Bona <sebastiano.debona@temple.edu>
-Description: This package contains aggregated, anonymized data on the presence/absence and population density of the Spotted Lanternfly (Lycorma delicatula) in the United States.    
-The package contains functions to display the data through both table summaries and maps.
+Description: This package contains aggregated, anonymized data on the presence/absence and population density of the Spotted Lanternfly (Lycorma delicatula) in the United States. The package contains functions to display the data through both table summaries and maps.
 License: CC-BY
 Encoding: UTF-8
 LazyData: true
