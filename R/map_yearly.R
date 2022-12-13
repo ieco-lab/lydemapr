@@ -42,7 +42,7 @@ map_yearly <- function(year_type = "biological",
 
   if(year_type == "biological"){
 
-  data <- lydemap::lyde_10k %>%
+  data <- lyde_10k %>%
     dplyr::filter(!is.na(slf_density)) %>%
     dplyr::mutate(slf_density = factor(slf_density,
                                        levels = c("Unpopulated",
@@ -67,7 +67,7 @@ map_yearly <- function(year_type = "biological",
 
   } else if(year_type == "calendar"){
 
-    data <- lydemap::lyde_10k %>%
+    data <- lyde_10k %>%
       dplyr::filter(!is.na(slf_density)) %>%
       dplyr::mutate(slf_density = factor(slf_density,
                                          levels = c("Unpopulated",
