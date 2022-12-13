@@ -11,7 +11,6 @@ output:
     theme: united
 params:
   show_code: FALSE
-  export_figures: TRUE
 author: 
     - "Sebastiano De Bona^[Temple University, sebastiano.debona@temple.edu]"
     - "Matthew R. Helmus^[Temple University, mrhelmus@temple.edu]"
@@ -48,17 +47,12 @@ We are constantly looking to expand the data sources to have a full representati
 # library(ggmap)
 # library(gridExtra)
 # library(grid)
-# library(lydemap)
+library(lydemap)
 library(magrittr)
 # library(maps)
 library(sf)
-# library(spData)
 library(tidyverse)
 library(tigris)
-# library(wesanderson)
-
-# fixing issue introduced with version 1.0.5 of package sf
-sf::sf_use_s2(FALSE)
 
 # factorizing and ordering pop density
 lyde %<>% 
@@ -73,12 +67,12 @@ lyde %<>%
 To begin, let's take a look at the data structure:
 
 ```{r data glance}
-head(lyde)
+head(lydemap::lyde)
 ```
 
 Each data point contains information on its source and specific dataset of origin ("survey"). The data is organized by year (specified as both calendar "year" and "bio_year", running from May 1st to April 30th), coordinates, and state. Additional columns define whether slf was found (even as an anecdotal individual record) at that location ("slf_present"), whether an established population was found there ("slf_established"), and what population density was ("slf_density"). For additional information on the variables included, please consult the help file associated with the data by typing `?lyde` in the RStudio console. A Metadata file can also be found in the compressed folder `lyde_data.zip` contained in `download_data/`.
 
-The package function `data_summary` allows the data to be broken down into summaries, with data grouped by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
+The package function `data_summary` breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
 
 ```{r data by year and state, results = "asis", fig.cap = "Data by Biological year and State"}
 # data by Year and State
@@ -92,552 +86,38 @@ Two functions allow the user to plot the data: `map_spread()` and `map_yearly`.
 
 ### `map_yearly()`
 
-The first functions produces a snapshot of the SLF spread in the US, with reference to the sampling effort associated with surveying the spread. Established populations are plotted asositive (filled circles) and negative surveys (grey crosses) for SLF on a map of the United States. The filled circles (positive surveys for established SLF populations) are color-coded based on the biological year when the population was first discovered.
+The first function produces a snapshot of the SLF spread in the United States, with reference to the sampling effort associated with surveying the spread. Surveyed finding an established population are plotted on the map as filled circles, color coded by the year of first discovery. Surveys finding no established population are plotted as grey crosses.
 
-```{r single map, fig.cap = "Map of SLF records", fig.height = 8, fig.width = 7.5, warning = F}
+```{r single map, fig.cap = "Map of SLF records", fig.height = 8, fig.width = 7.5}
 # We can now proceed to plotting
-
+map_spread()
 ```
 
-```{r saving figure for spread, eval = params$export_figures, results = "hide"}
-# the figure is exported only when specified by the "export_figures"
-# parameter in the markdown yaml.
-png(file.path(here::here(), "figures", "SLF_spread.png"), width = 7, height = 7, unit = "in", res = 320)
-g1
-dev.off()
+The function can be customized to show the data gridded at higher spatial resolution (10k^2^), by setting the option `resolution` to "10k".
+
+```{r map at 10k, fig.cap = "Map of SLF records at 10km resolution", fig.height = 8, fig.width = 7.5}
+map_spread(resolution = "10k")
 ```
 
-Let's now take a look at a subset of this records, only concerning established (or presumed established) populations. Here we considered a record as referring to an established population only when more than a single individual, or at least a clutch of eggs, was found. In addition, we reduce the spatial resolution down to 10 km grids, to remove some of the clutter produced by the overcrowding of points above.
+In addition, the user can specify which area of the United States should be mapped, by setting the `zoom` variable to "custom" and specifying the boundaries of the mapped area through `xlim_coord` (longitude) and `ylim_coord` (latitude).
 
-```{r map of established, fig.cap = "Map of established SLF populations", fig.height = 10, fig.width=8, warning=F, message = F}
-# the first step is to pick a spatial resolution for our rounding
-# here, grid_res defines the approximate size, in km, of our 
-# grid cells.
-grid_res = 10
-
-# now we can round the data:
-# to do so, we use the function RoundTo (DescTools package)
-# as opposed to a normal "round" function, which only allows us
-# to specify a number of decimals, RoundTo allows for an actual
-# value (e.g. 0.05) to round towards. Here we calculate said 
-# value by determining (roughly) what in latitudinal and longitudinal
-# degrees corresponds to the size of our grid_res
-# The distance between parallels is relatively constant, at around 
-# 110 km per latitudinal degree. The distance between meridian changes with
-# latitude, but it's about 79km at 45° Lat (which is the range we're
-# working on)
-slf_round <- slf_tiny %>%
-  mutate(latitude = DescTools::RoundTo(latitude, multiple = grid_res/111),
-         longitude = DescTools::RoundTo(longitude, multiple = grid_res/79)) %>%
-  group_by(bio_year, latitude, longitude) %>%
-  summarise(slf_present = any(slf_present),
-            slf_established = any(slf_established),
-            slf_density = max(as.numeric(slf_density), na.rm = T)) %>% 
-  mutate(slf_density = recode(as.character(slf_density),
-                                           "1" = "Unpopulated",
-                                           "2" = "Low",
-                                           "3" = "Medium",
-                                           "4" = "High"),
-         slf_density = factor(slf_density, levels = c("Unpopulated",
-                                                      "Low",
-                                                      "Medium",
-                                                      "High"))) %>% 
-  ungroup()
-
-# we are now ready to plot, using tiles since we have grid cells
-g2 <-  ggplot() +
-    geom_sf(data = states, fill = "white") + 
-    coord_sf(xlim = c(-86, -70), ylim = c(32, 46.5), expand = FALSE) +
-  geom_tile(data = slf_round %>% filter(!slf_established), 
-             aes(x = longitude, y = latitude), 
-             col = "grey", alpha = 0.3) +
-  geom_tile(data = slf_round %>% filter(slf_established) %>% arrange(desc(bio_year)) %>% 
-              mutate(bio_year = as.factor(bio_year)),
-            aes(x = longitude, y = latitude, fill = bio_year)) +
-  geom_text(data = states, aes(X, Y, label = code), size = 4.5) +
-  scale_fill_viridis_d(option = "plasma", direction = -1) +
-  #scale_fill_gradientn(colours = wesanderson::wes_palette("Zissou1", 100, type = "continuous")) +
-  labs(x = "Longitude", y = "Latitude", fill = "Year") +
-  guides(colour = guide_legend(override.aes = list(size = 5, shape = 15)))+
-  theme(legend.position = c(0.9,0.2),
-        panel.grid = element_blank(),
-        legend.key=element_rect(fill=NA))
-g2
-
-# DARK THEME
-# # we are now ready to plot, using tiles since we have grid cells
-# g2 <-  ggplot() +
-#     geom_sf(data = states, fill = "grey20") + 
-#     coord_sf(xlim = c(-86, -70), ylim = c(32, 46.5), expand = FALSE) +
-#   geom_tile(data = slf_round %>% filter(!slf_established), 
-#              aes(x = longitude, y = latitude), 
-#              fill = "grey80", alpha = 0.25) +
-#   geom_tile(data = slf_round %>% filter(slf_established) %>% arrange(desc(bio_year)),
-#             aes(x = longitude, y = latitude, fill = bio_year)) +
-#   geom_text(data = states, aes(X, Y, label = code), size = 4.5) +
-#   scale_fill_viridis_c(option = "plasma", direction = 1) +
-#   #scale_fill_gradientn(colours = wesanderson::wes_palette("Zissou1", 100, type = "continuous")) +
-#   labs(x = "Longitude", y = "Latitude", fill = "Year")
-# 
-# g2
+```{r map at 10k, fig.cap = "Map of SLF records at 10km resolution", fig.height = 8, fig.width = 7.5}
+map_spread(resolution = "1k",
+           zoom = "custom",
+           xlim_coord = c(-78, -74),
+           ylim_coord = c(38, 42))
 ```
 
-```{r saving figure for establishment, eval = params$export_figures, results = "hide"}
-# the figure is exported only when specified by the "export_figures"
-# parameter in the markdown yaml.
-png(file.path(here::here(), "figures", "SLF_establishment.png"), width = 7, height = 7, unit = "in", res = 300)
-g2
-dev.off()
-```
+### `map_yearly()`
 
-Finally, we can draw a map of population density through time, only zooming into the portion of space where SLF is established. Note: the data here is not cumulative, meaning only data from a given year is shown in a panel of the figure. The year 2021 is currently excluded since the data for it is incomplete.
+The second function allows the user to visualize the progression of SLF establishment, and the collection of surveys, over time. Note that the data here is not cumulative, meaning only data from a given year is shown in a panel of the figure.
 
 ```{r density map, fig.cap = "Map of population density by Year", fig.height = 7, fig.width=7}
 # running year-specific map
-g3 <- ggplot() +
-  geom_sf(data = states, fill = "white") +
-  geom_tile(data = slf_round %>% filter(slf_established,
-                                          !is.na(slf_density),
-                                        bio_year <= 2021,
-                                        bio_year >= 2014), 
-                aes(x = longitude, y = latitude, fill = slf_density)) +
-  geom_sf(data = states, fill = "transparent") +
-  coord_sf(xlim = c(-82, -72), ylim = c(38, 44), expand = T) +
-  scale_fill_brewer(palette = "Reds") +
-  labs(x = "Longitude", y = "Latitude", fill = "Recorded SLF Density") +
-  theme(legend.position = "top",
-        panel.grid = element_blank()) +
-  facet_wrap(.~bio_year, ncol = 2)
-g3
-```
-
-```{r export density figure, eval = params$export_figures, results = "hide"}
-# exporting the figure, if requested
-png(file.path(here::here(), "figures", "SLF_density.png"), width = 10, height = 12, unit = "in", res = 300)
-g3
-dev.off()
-```
-
-\newpage
-
-### Data Sources
-
-Figure 4 (left) shows instead the amount of data points contributed from the different sources up to 2020 (PDA, Neighboring states, USDA, or iNaturalist) by year. Both positive and negative records are included. On the right, the figure shows the cumulative area covered by the different agencies/sources, while also displaying the overlap, or area covered by more than one source. From the figure one can notice how the ovelap is relatively small, highlighting the importance of combining data sources.
-
-```{r year map, warning = F, message=F}
-# recoding source names
-# and tallying up
-source_tally <- slf_tiny %>% 
-  mutate(Source = recode(source, 
-                         "PA" = "State Depts. of Ag.",
-                         "inat" = "iNaturalist",
-                         "states" = "State Depts. of Ag.",
-                         "usda" = "USDA")) %>% 
-  mutate(Source = factor(Source, levels = c("State Depts. of Ag.", "USDA", "iNaturalist"))) %>% 
-  group_by(Source, year, .drop = FALSE) %>%
-  tally() %>% 
-  ungroup() %>% 
-  complete(Source, year, fill = list(n = 0)) %>% 
-  group_by(Source, .drop = FALSE) %>%
-  arrange(Source, year) %>% 
-  filter(year <= 2021) %>% 
-  mutate(total_points = cumsum(n))
-
-# picking palette
-colorBlind  <- c("#CC79A7", "#0072B2", "#56B4E9")
-
-g4 <- ggplot(source_tally, aes(x = year)) +
-  geom_line(aes(y = total_points + 1, group = Source, col = Source), size = 2, alpha = 0.3) +
-  geom_point(aes(y = total_points + 1, group = Source, col = Source), size = 4) +
-  scale_colour_manual(values =  colorBlind) +
-  labs(fill = "Source", x = "Year", y = "n. of individual survey locations (log scale)") +
-  scale_y_continuous(breaks = c(1, 10, 100,1000,10000,100000),
-                     labels = c(expression(10^0), expression(10^1), expression(10^2),
-                                expression(10^3), expression(10^4), expression(10^5)),
-                     trans = "log10") +
-  theme_classic() + theme(legend.position = c(0.8, 0.2), legend.box.background = element_rect(colour = "black"))
-```
-
-```{r export by-year figure, fig.cap = "Cumulative contribution by different data sources", eval = params$export_figures, results = "hide"}
-# exporting the figure, if requested
-png(file.path(here::here(), "figures", "SLF_sampling_effort.png"), width = 6, height = 4, unit = "in", res = 300)
-g4
-dev.off()
-```
-
-```{r area covered, fig.height = 8, fig.width=4, message = F, warning = F}
-slf_round_source <- slf_tiny %>%
-  mutate(latitude = DescTools::RoundTo(latitude, multiple = grid_res/111),
-         longitude = DescTools::RoundTo(longitude, multiple = grid_res/79)) %>%
-  group_by(year, latitude, longitude, source) %>% 
-  summarise(slf_established = any(slf_established)) %>% 
-  ungroup()
-
-number_of_sources <- slf_round_source %>% 
-  group_by(year, latitude, longitude) %>% 
-  tally()
-
-slf_source_area <- slf_round_source %>% 
-  left_join(., number_of_sources, by = c("latitude", "longitude", "year")) %>% 
-  filter(n == 1) %>% 
-  mutate(Source = recode(source, 
-                         "PA" = "State Depts. of Ag.",
-                         "inat" = "iNaturalist",
-                         "states" = "State Depts. of Ag.",
-                         "usda" = "USDA")) %>% 
-  group_by(Source, year, .drop = FALSE) %>%
-  tally() %>% 
-  ungroup() %>% 
-  complete(Source, year, fill = list(n = 0)) %>% 
-  group_by(Source, .drop = FALSE) %>%
-  arrange(Source, year) %>% 
-  filter(year <= 2021) %>% 
-  mutate(total_points = cumsum(n))
-
-slf_source_area <- number_of_sources %>% 
-  filter(n > 1) %>% 
-  group_by(year) %>% 
-  tally() %>% 
-  add_row("year" = 2014, n = 0) %>% 
-  arrange(year) %>% 
-  ungroup() %>% 
-  filter(year <= 2021) %>% 
-  mutate(total_points = cumsum(n)) %>% 
-  add_column("Source" = "Overlap") %>% 
-  bind_rows(slf_source_area, .) %>% 
-  mutate(Source = factor(Source, levels = c("State Depts. of Ag.", "USDA", "iNaturalist", "Overlap")),
-         total_points = total_points/1000)
-
-g4b <- ggplot(slf_source_area, aes(x = year)) +
-  geom_area(aes(y = total_points, group = Source, fill = Source)) +
-  scale_fill_manual(values =  c(colorBlind, "#009E73")) +
-  scale_y_continuous(breaks = c(0,2,4,6)) +
-  labs(fill = "Source", x = "Year", y = expression("cumulative area covered (x100000 km" ^2* ")")) +
-  theme_classic() + 
-  theme(legend.position = c(0.25, 0.8), legend.box.background = element_rect(colour = "black"))
-
-gridExtra::grid.arrange(g4, g4b, nrow = 2)
-```
-
-```{r saving figure, eval = params$export_figures, results = "hide"}
-png(file.path(here::here(), "figures", "SLF_area_covered.png"), width = 6, height = 4, unit = "in", res = 300)
-g4b
-dev.off()
-```
-
-```{r saving panel, eval = params$export_figures, results = "hide"}
-plot1 <- gridExtra::arrangeGrob(g1+theme(axis.title = element_blank()), 
-                     top = grid::textGrob("A", x = unit(0, "npc"), y   = unit(1, "npc"),
-                                    just=c("left","top"),
-                                    gp=grid::gpar(col="black", fontsize=18, fontfamily="Arial")))
-plot2 <- gridExtra::arrangeGrob(g4, 
-                     top = grid::textGrob("B", x = unit(0, "npc"), y   = unit(1, "npc"),
-                                    just=c("left","top"),
-                                    gp=grid::gpar(col="black", fontsize=18, fontfamily="Arial")))
-plot3 <- gridExtra::arrangeGrob(g4b, 
-                     top = grid::textGrob("C", x = unit(0, "npc"), y   = unit(1, "npc"),
-                                    just=c("left","top"),
-                                    gp=grid::gpar(col="black", fontsize=18, fontfamily="Arial")))
-
-combined_panel <- gridExtra::grid.arrange(plot1, plot2, plot3,
-                               nrow = 2, ncol = 3,
-                               layout_matrix = rbind(c(1,1,2),
-                                                     c(1,1,3)))
-ggsave(file.path(here::here(), "figures", "SLF_data_panel.png"),
-       combined_panel, 
-       height = 8, width = 13)
-```
-
-### Points of Interest
-
-An interesting aspect of plotting the spread of SLF is to recognize points of interest that become affected by it as the invasion advances.
-
-Below we create a figure to show the spread through time starting from Berks County PA and zooming out as more locations are colonized. The points shown represent established populations. In addition, we plot points of interest, such as wineries and transportation hubs. The data regarding the points of interest was gathered by hand by undergrad students and is stored in a separate data file.
-
-```{r points of interest, message = F, warnings = F}
-# the data is stored in Googlesheets, and was downloaded as `.csv` files (stored in the `inst/extdata` folder).
-# loading winery data
-winery <- read_csv(file.path(here::here(), "inst", "extdata",
-                             "wineries_ext.csv")) %>% 
-  dplyr::select(Type, State,
-                longitude = `Longitude (DD)`,
-                latitude = `Latitude (DD)`) %>% 
-  filter(Type == "Winery") %>% 
-  filter(complete.cases(.))
-  
-# loading transport data (now from Devon)
-ports <- st_read(file.path(here::here(), "inst", "extdata",
-                  "transport_shapefiles", "All_Ports_conus_edited.shp"))
-intermodal <- st_read(file.path(here::here(), "inst", "extdata",
-                  "transport_shapefiles", "Intermodal_Freight_Facilities_RailTOFCCOFC.shp"))
-transports <- vctrs::vec_c(ports, intermodal)
-
-transports_df <- tibble(longitude = st_coordinates(transports)[, "X"],
-                     latitude = st_coordinates(transports)[, "Y"])
-  
-# old intermodal data
-# intermodal <- read_csv(file.path(here::here(), "inst", "extdata",
-#                              "transport.csv"))%>%
-#   dplyr::select(intertype = INTERTYPE,
-#                 state = STATE,
-#                 longitude = Longitude,
-#                 latitude = Latitude)
-```
-
-Now that we have the location of the points of interest, we can draw the maps. We will use the rounded version of the data we created above (when drawing the establishment map). In this case, we are plotting the data on a more detailed background, using `ggmap`. The maps are centered on Berks county, on the first site where SLF was found.
-
-```{r dynamic map of spread, message = FALSE, warning = F, fig.cap = "Dynamic map of SLF spread, with points of interest", fig.width=12.5, fig.height=8}
-# below, we are running a loop to create one map per each
-# here. This way we will have far more control over the parameters
-# of each map.
-intro <- tibble(longitude = -75.673699, latitude = 40.41031)
-
-for(i in (slf_round %>% pull(bio_year) %>% unique)){
-  
-  # first, we pick the coordinates of the original population
-  # to act as center of the map. This is done inside the loop,
-  # to allow us to refres the centre in case we want to modify it for
-  # some map
-  core <- c(-75.673699, 40.41031)
-  
-  # Here we get boundary values for the extent of the population establishment
-  # they will be used to define the boundaries of the map, so that
-  # the extent of the map we draw will follow the spread. To get eh boundaries
-  # weare using the entire dataset, not the rounded one
-  latmax <- slf_tiny %>% filter(slf_established, state == "PA", bio_year <= i) %>% 
-    pull(latitude) %>% max()
-  latmin <- slf_tiny %>% filter(slf_established, state == "PA", bio_year <= i) %>% 
-    pull(latitude) %>% min()
-  lonmax <- slf_tiny %>% filter(slf_established, state == "PA", bio_year <= i) %>% 
-    pull(longitude) %>% max()
-  lonmin <- slf_tiny %>% filter(slf_established, state == "PA", bio_year <= i) %>% 
-    pull(longitude) %>% min()
-  
-  # for the 2019 map, we want to have a bird-eye view over the entire
-  # state of PA. we then pick a value that roughly represents the centrepoint
-  # of the state
-  if(i == 2019){
-    core <- c(-77, 40.8)
-  }
-  
-  # to find the size of the square that will define our map extent, we
-  # pick the furthest coordinate to the centre point. We also add
-  # a minimum value (0.66) to avoid zooming in too much
-  box_side <- min(
-    max(abs(latmax - core[2]), 
-      abs(latmin - core[2]),
-      abs(lonmax - core[1]),
-      abs(lonmin - core[1]),
-      0.66))
-  
-  # here we define the zoom level (required to determine which resolution
-  # maps are loaded by ggmap).
-  # we want the zoom to decrease with years, up to a certain point. Here
-  # we make sure the zoom is 9 in 2014:2017, and then increases by 1 each year until 2020
-  zoom_level = max(9 - max((i-2017), 0), 6)
-  # we also define the size of the points to be plotted, accordingly
-  point_size = ifelse(i < 2018, 2, 0.8)
-  
-  # toggling zoom for 2014 and 2019 map:
-  # to improve the quality of this figure, we decide by hand the 
-  # box_side and zoom_level for 2014 and 2019.
-  if(i == 2014){
-    box_side = 0.45
-    zoom_level = 10
-  } else if (i == 2019){
-    zoom_level = 7
-    box_side = box_side*1.1
-  }
-  
-  # bgm contains the background map, which we extract using the 
-  # function get_stamenmap (package ggmap)
-  bgm <- ggmap::get_stamenmap(bbox = c(core[1] - box_side*1.1,
-                                       core[2] - box_side,
-                                       core[1] + box_side*1.1,
-                                       core[2] + box_side),
-                              zoom = zoom_level, color = "bw", force = T)
-  
-  
-  # Now we are ready to plot, and store the grob object to later 
-  # call all plots together
-  g <- ggmap::ggmap(bgm) +
-  geom_tile(data = slf_round %>%
-              filter(slf_established, bio_year <= i) %>% 
-              group_by(latitude, longitude) %>% 
-              summarize(slf_established = any(slf_established)) %>% 
-              ungroup(),
-             aes(x = longitude, y = latitude), 
-             fill = "#A23437", alpha = 0.6) +
-  geom_point(data = winery %>% filter(complete.cases(.)),
-            aes(x = longitude, y = latitude),
-            fill = "#5F246C", col = "#5F246C", shape = 25, size = point_size) +
-  geom_point(data = transports_df %>% filter(complete.cases(.)),
-            aes(x = longitude, y = latitude),
-            col = "#0072B2", shape = 8, size = point_size) +
-  geom_point(data = intro, aes(x = longitude, y = latitude), col = "white",
-            fill = "#A23437", size = 3, shape = 21) +
-    xlab("") + ylab("") +
-    theme(axis.text = element_blank(),
-          axis.ticks = element_blank()) +
-    annotate("label", x = Inf, y = Inf, label = paste0("Year ", i),
-               hjust = 1, vjust = 1, fill = "white", size = 5)
-  
-  assign(paste0("d", i), g)
-}
-
-# we can create a mock plot just so we can use out custom function get_legend
-# to extract a legend. This is convenient since every map above
-# shares the same legend, and we don't want to repeat it.
-legend <- lycormap::get_legend(
-tibble(x = c(1,2,3),
-                     y = 0,
-                     z = 1,
-                     cl = c("Established \n SLF", "Transport", "Winery")) %>% 
-ggplot() +
-  geom_point(aes(x = x, y = y, col = cl, shape = cl, size = cl, alpha = cl),
-             fill = c("#5F246C")) +
-  scale_colour_manual(values = c("#A23437", "#0072B2", "#5F246C")) +
-  scale_size_manual(values = c(8, 2, 2)) +
-  scale_shape_manual(values = c(15, 8, 25)) +
-  scale_alpha_manual(values = c(0.6, 1, 1)) +
-  labs(col = "",
-       shape = "",
-       size = "",
-       alpha = "") +
-  theme(legend.text = element_text(size = 14), legend.key = element_rect(fill = NA))
-)
-
-gridExtra::grid.arrange(legend, d2015, d2016, d2017, d2018, d2019, d2020, d2021,
-             ncol=4, nrow = 2,
-             layout_matrix = rbind(c(2,3,4,1), c(5,6,7,8)),
-             widths = c(.25, .25, .25, .25), heights = c(.5, .5),
-             padding = unit(0.33, "line"))
-```
-
-
-```{r export dynamic map of spread, eval = params$export_figures, results = "hide", warning =FALSE}
-png(file.path(here::here(), "figures", "SLF_POI.png"),
-    width = 15, height = 9.5, unit = "in", res = 300)
-gridExtra::grid.arrange(legend, d2015, d2016, d2017, d2018, d2019, d2020, d2021,
-             ncol=4, nrow = 2,
-             layout_matrix = rbind(c(2,3,4,1), c(5,6,7,8)),
-             widths = c(.25, .25, .25, .25), heights = c(.5, .5),
-             padding = unit(0.33, "line"))
-dev.off()
+# map_yearly()
 ```
 
 
 
-```{r static map of spread, message = FALSE, warning = F, fig.cap = "Static map of SLF spread, with points of interest", fig.width=15, fig.height=9.5, include =F}
-# below, we are running a loop to create one map per each
-# here. This way we will have far more control over the parameters
-# of each map.
-
-core <- c(-77, 40.8)
-intro <- tibble(longitude = -75.673699, latitude = 40.41031)
-  
-  # Here we get boundary values for the extent of the population establishment
-  # they will be used to define the boundaries of the map, so that
-  # the extent of the map we draw will follow the spread. To get the boundaries
-  # weare using the entire dataset, not the rounded one
-  latmax <- slf_tiny %>% filter(slf_established, state == "PA", bio_year == 2021) %>% 
-    pull(latitude) %>% max()
-  latmin <- slf_tiny %>% filter(slf_established, state == "PA", bio_year == 2021) %>% 
-    pull(latitude) %>% min()
-  lonmax <- slf_tiny %>% filter(slf_established, state == "PA", bio_year == 2021) %>% 
-    pull(longitude) %>% max()
-  lonmin <- slf_tiny %>% filter(slf_established, state == "PA", bio_year == 2021) %>% 
-    pull(longitude) %>% min()
-  
-  # to find the size of the square that will define our map extent, we
-  # pick the furthest coordinate to the centre point. We also add
-  # a minimum value (0.66) to avoid zooming in too much
-  box_side <- min(
-    max(abs(latmax - core[2]), 
-      abs(latmin - core[2]),
-      abs(lonmax - core[1]),
-      abs(lonmin - core[1]),
-      0.66))
-
-zoom_level = 7  
-point_size = 0.5
-
-# bgm contains the background map, which we extract using the 
-  # function get_stamenmap (package ggmap)
-  bgm <- ggmap::get_stamenmap(bbox = c(core[1] - box_side*1.2,
-                                core[2] - box_side,
-                                core[1] + box_side*1.2,
-                                core[2] + box_side),
-                       zoom = zoom_level, color = "bw", force = T)
-
-for(i in (slf_round %>% pull(bio_year) %>% unique)){
-
-  # Now we are ready to plot, and store the grob object to later 
-  # call all plots together
-  g <- ggmap::ggmap(bgm) +
-  geom_tile(data = slf_round %>%
-              filter(slf_established, bio_year <= i) %>% 
-              group_by(latitude, longitude) %>% 
-              summarize(slf_established = any(slf_established)) %>% 
-              ungroup(),
-             aes(x = longitude, y = latitude), 
-             fill = "#A23437", alpha = 0.6) +
-  geom_point(data = winery %>% filter(complete.cases(.)),
-            aes(x = longitude, y = latitude),
-            fill = "#5F246C", col = "#5F246C", shape = 25, size = point_size) +
-  geom_point(data = transports_df %>% filter(complete.cases(.)),
-            aes(x = longitude, y = latitude),
-            col = "#0072B2", shape = 8, size = point_size) +
-    geom_point(data = intro, aes(x = longitude, y = latitude), col = "white",
-               fill = "#A23437", size = 4, shape = 21) +
-    xlab("") + ylab("") +
-    theme(axis.text = element_blank(),
-          axis.ticks = element_blank()) +
-    annotate("label", x = Inf, y = Inf, label = paste0("Year ", i),
-               hjust = 1, vjust = 1, fill = "white", size = 5)
-  
-  assign(paste0("d", i), g)
-}
-
-# we can create a mock plot just so we can use out custom funtion get_legend
-# to extract a legend. This is convenient since every map above
-# shares the same legend, and we don't want to repeat it.
-legend <- lycormap::get_legend(
-tibble(x = c(1,2,3),
-                     y = 0,
-                     z = 1,
-                     cl = c("Established \n SLF", "Winery", "Transport")) %>% 
-ggplot() +
-  geom_point(aes(x = x, y = y, col = cl, shape = cl, size = cl, alpha = cl),
-             fill = "#5F246C") +
-  scale_colour_manual(values = c("#A23437", "#0072B2", "#5F246C")) +
-  scale_fill_manual(values = c("#A23437", "#0072B2", "#5F246C")) +
-  scale_size_manual(values = c(8, 2, 2)) +
-  scale_shape_manual(values = c(15, 8, 25)) +
-  scale_alpha_manual(values = c(0.4, 1, 1)) +
-  labs(col = "",
-       shape = "",
-       size = "",
-       alpha = "") +
-  theme(legend.text = element_text(size = 14), legend.key = element_rect(fill = NA))
-)
-
-gridExtra::grid.arrange(legend, d2015, d2016, d2017, d2018, d2019, d2020, d2021,
-             ncol=4, nrow = 2,
-             layout_matrix = rbind(c(2,3,4, 5), c(6,7, 8, 1)),
-             widths = c(1, 1, 1, 1), heights = c(1, 1),
-             padding = unit(0.33, "line"))
-```
-
-```{r export static map of spread, eval = params$export_figures, results = "hide", warning =FALSE}
-png(file.path(here::here(), "figures", "SLF_static_transport.png"),
-    width = 15, height = 9.5, unit = "in", res = 300)
-gridExtra::grid.arrange(legend, d2015, d2016, d2017, d2018, d2019, d2020, d2021,
-             ncol=4, nrow = 2, 
-             layout_matrix = rbind(c(2,3,4,5), c(6,7,8,1)),
-             widths = c(1, 1, 1, 1), heights = c(1, 1),
-             padding = unit(0.33, "line"))
-dev.off()
-```
 
 

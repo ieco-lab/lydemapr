@@ -1,6 +1,6 @@
 #' Map the spread of SLF in the U.S.
 #'
-#' The function takes a the dataset of SLF occurrences and displays a map of the spread over time.
+#' The function takes a dataset of SLF occurrences and displays a map of the spread over time.
 #' The "zoom" option allows for a customized focus of the map
 #'
 #'@export
@@ -8,26 +8,13 @@
 #'@param resolution Defines the resolution at which the data is displayed. `"1k"` resolution shows data aggregated at a 1km2 grid, while `"10k"` shows tiles aggregated at a 10km2 grid
 #'@param zoom Defines the limits of the map to be plotted. `"range"` limits the map to the established range for SLF; `"full"` displays the whole United States. `"custom"` the user to specify the range over which the map should be displayed (see `xlim_coord, ylim_coord` below).
 #'@param xlim_coord,ylim_coord Ordered numerical vectors of length 2 determining the longitudinal (`xlim`) and latitudinal (`ylim`) boundaries of the map, to be expressed as decimal degree coordinates. Unnecessary if zoom is set to any value other than `"custom"`
-#'@param rarefy TRUE/FALSE
-#'@param color_palette Choose among viridis palettes
-#'@return The legend of the plot, as an object
+#'@param rarefy Logical value (`TRUE/FALSE`). Specifies whether the data should be summarized for faster plotting. Overwritten and set to `TRUE` when zoom is full and/or the resolution is 10k.
+#'@param color_palette 	A character string indicating the color option to use. Five options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"), "viridis" (or "D", the default option) and "cividis" (or "E").
+#'@param print_message Logical value. Can be set to `FALSE` to shut down the warning on run time.
+#'@return A ggplot of the spread of SLF
 #'@examples
 #'## Examples
-#' d1 <- tibble(x = runif(100, 0, 15),
-#'             y = x + rnorm(100, sd = 1),
-#'             z = sample(c("A", "B", "C"), 100, replace = T))
-#' d2 <- tibble(x = runif(100, -10, 10),
-#'             y = - x^2 + rnorm(100, sd = 1),
-#'             z = sample(c("A", "B", "C"), 100, replace = T))
-#' g1 <- ggplot(d1) +
-#'   geom_point(aes(x = x, y = y, col = z))
-#' g2 <- ggplot(d2) +
-#'   geom_point(aes(x = x, y = y, col = z))
-#' g_legend <- get_legend(g1)
-#' grid.arrange(g1 + theme(legend.position = "none"),
-#'              g2 + theme(legend.position = "none"),
-#'              g_legend, nrow = 1,
-#'              widths = c(3,3,1))
+#'
 
 
 
@@ -41,6 +28,9 @@ map_spread <- function(resolution = "1k",
 
   suppressMessages(require(tidyverse))
   suppressMessages(require(sf))
+  # switching off Spherical geometry
+  suppressMessages(sf::sf_use_s2(FALSE))
+
 
 
 if(print_message){
@@ -74,33 +64,47 @@ state_abbr <- tibble(state.name = state.name,
 states$code <- state_abbr$state.abb
 
 
-### Selecting appropriate dataset based on resolution specified
+### Selecting appropriate dataset based on resolution specified ###
 
 if(resolution == "1k"){
-  data <- lyde
+  data <- lydemap::lyde
 } else if(resolution == "10k"){
-  data <- lyde_10k
+  data <- lydemap::lyde_10k
 } else {stop("Wrong resolution specified. Please select '1k' or '10k'")}
 
 
 ### Rarefying data if required (default), and selecting appropriate resolution ###
 
-data_established <- data %>%
-  dplyr::filter(slf_established) %>%
-  dplyr::group_by(latitude, longitude) %>%
-  dplyr::summarise(
-    bio_year = min(bio_year),
-    .groups = "keep")
+if(any(rarefy,
+       zoom == "full",
+       zoom == "range",
+       resolution == "10k")){
 
-data_surveyed <- data %>%
-  dplyr::group_by(latitude, longitude) %>%
-  dplyr::summarise(
-    slf_established = any(slf_established),
-    .groups = "keep") %>%
-  dplyr::filter(!slf_established)
+  data_established <- data %>%
+    dplyr::filter(slf_established) %>%
+    dplyr::group_by(latitude, longitude) %>%
+    dplyr::summarise(
+      bio_year = min(bio_year),
+      .groups = "keep")
+
+  data_surveyed <- data %>%
+    dplyr::group_by(latitude, longitude) %>%
+    dplyr::summarise(
+      slf_established = any(slf_established),
+      .groups = "keep") %>%
+    dplyr::filter(!slf_established)
+
+} else {
+
+  data_established <- data %>%
+    dplyr::filter(slf_established)
+  data_surveyed <- data %>%
+    dplyr::filter(!slf_established)
+
+}
 
 
-### Determining range based on zoom specification
+### Determining range based on zoom specification ###
 
 if(zoom == "full"){
   xlim_coord <- NULL
@@ -116,12 +120,13 @@ if(zoom == "full"){
   ylim_coord[1] <- ylim_coord[1] - diff(ylim_coord)*0.5
   ylim_coord[2] <- ylim_coord[2] + diff(ylim_coord)*0.5
 } else if(zoom == "custom"){
-  xlim_coord = xlim_coord
-  ylim_coord = ylim_coord
+  stopifnot(diff(xlim_coord)>0)
+  stopifnot(diff(ylim_coord)>0)
 }
 
 
 ## Producing Map ##
+# Now the maps are created
 
 if(resolution == "1k"){
 
