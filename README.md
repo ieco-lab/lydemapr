@@ -7,13 +7,13 @@ The package `lydemap` combines survey datasets produced by different agencies in
 
 ### How to use this project
 
-There are several ways to obtain the package and the data associated with it.
+There are three ways to obtain the package and the data associated with it.
 
-#### Downloading the data only
+#### 1. Downloading the data only
 
 The data itself can be obtained separately by downloading the compressed folder `/download_data` directly form [this github page](https://github.com/ieco-lab/lydemap). The folder contains a compressed folder with two version of the data in `.csv` format, alongside a Metadata file to understand and use the data.
 
-#### Installing the package in R
+#### 2. Installing the package in R
 
 The package `lydemap` can be installed by the user in an instance of R or RStudio by typing.
 
@@ -22,7 +22,7 @@ require(devtools)
 devtools::install_github("ieco-lab/lydemap")
 ```
 
-#### Cloning the package locally
+#### 3. Cloning the package locally
 
 If the user wishes to access the full content of the package, `lydemap` needs to be cloned locally.
 To do so, open your Terminal or git shell, and `cd` to the appropriate folder where you want the project to be stored. Then, type: 
