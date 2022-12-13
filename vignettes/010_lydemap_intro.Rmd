@@ -43,19 +43,13 @@ We are constantly looking to expand the data sources to have a full representati
 
 ```{r packages and data, include = params$show_code, message = FALSE, warning = FALSE}
 # attaching necessary packages
-# library(DescTools)
-# library(ggmap)
-# library(gridExtra)
-# library(grid)
 library(lydemap)
-library(magrittr)
-# library(maps)
 library(sf)
 library(tidyverse)
 library(tigris)
 
 # factorizing and ordering pop density
-lyde %<>% 
+lyde <- lyde %>% 
   mutate(slf_density = factor(slf_density, levels = c("Unpopulated",
                                                       "Low",
                                                       "Medium",
