@@ -95,7 +95,7 @@ map_spread(resolution = "10k")
 
 In addition, the user can specify which area of the United States should be mapped, by setting the `zoom` variable to "custom" and specifying the boundaries of the mapped area through `xlim_coord` (longitude) and `ylim_coord` (latitude).
 
-```{r map at 10k, fig.cap = "Map of SLF records at 10km resolution", fig.height = 8, fig.width = 7.5}
+```{r map at 10k_2, fig.cap = "Map of SLF records at 10km resolution", fig.height = 8, fig.width = 7.5}
 map_spread(resolution = "1k",
            zoom = "custom",
            xlim_coord = c(-78, -74),
