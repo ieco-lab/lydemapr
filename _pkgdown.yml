@@ -1,4 +1,30 @@
-url: https://ieco-lab.github.io/lydemap/
-template:
-  bootstrap: 5
+### * home
 
+home:
+  links:
+    - text: Browse source code here
+      href: https://ieco-lab.github.io/lydemap/
+
+### * template
+
+template:
+  params:
+    bootswatch: flatly
+
+### * navbar
+
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Introduction to lydemap"
+      href: articles/010_lydemap_intro.html
+
+
+  right:
+    - icon: fa-gitlab fa-lg
+      href:
+    - icon: fa-github fa-lg
+      href: https://ieco-lab.github.io/lydemap/
