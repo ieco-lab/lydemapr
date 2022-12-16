@@ -28,6 +28,10 @@ jobs:
           extra-packages: any::pkgdown
           needs: website
 
+      - name: Install lydemap
+        run: |
+          Rscript -e 'devtools::install_github("ieco-lab/lydemap")'
+
       - name: Deploy package
         run: |
           git config --local user.name "$GITHUB_ACTOR"
