@@ -43,6 +43,7 @@ We are constantly looking to expand the data sources to have a full representati
 
 ```{r packages and data, include = params$show_code, message = FALSE, warning = FALSE}
 # attaching necessary packages
+library(lydemap)
 library(sf)
 library(tidyverse)
 library(tigris)
