@@ -1,0 +1,10 @@
+pandoc: 2.9.2.1
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  010_lydemap_intro: 010_lydemap_intro.html
+last_built: 2022-12-16T20:09Z
+urls:
+  reference: https://ieco-lab.github.io/lydemap/reference
+  article: https://ieco-lab.github.io/lydemap/articles
+
