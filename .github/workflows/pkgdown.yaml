@@ -28,9 +28,8 @@ jobs:
           extra-packages: any::pkgdown
           needs: website
 
-      - name: Install lydemap
-        run: |
-          Rscript -e 'devtools::install_github("ieco-lab/lydemap")'
+      - name: Install package
+        run: R CMD INSTALL .
 
       - name: Deploy package
         run: |
