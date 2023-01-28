@@ -18,12 +18,6 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 ---
 
 ```{r setting figure files as png, include = F}
-# paste this to the above yaml to add authors
-#author: 
-#    - "Sebastiano De Bona^[Temple University, sebastiano.debona@temple.edu]"
-#    - "Matthew R. Helmus^[Temple University, mrhelmus@temple.edu]"
-# authors can be removed if necessary
-
 # above, in the YAML parameters, we have defined want_code and 
 # export_figures, which will define echo and eval for the code chunks.
 # these parameters define whether code is to be displayed
@@ -47,16 +41,9 @@ library(lydemap)
 library(sf)
 library(tidyverse)
 library(tigris)
-
-# factorizing and ordering pop density
-lyde <- lyde %>% 
-  mutate(slf_density = factor(slf_density, levels = c("Unpopulated",
-                                                      "Low",
-                                                      "Medium",
-                                                      "High")))
 ```
 
-## Data Summaries
+## Data Summary
 
 To begin, let's take a look at the data structure:
 
@@ -64,13 +51,13 @@ To begin, let's take a look at the data structure:
 head(lydemap::lyde)
 ```
 
-Each data point contains information on its source and specific dataset of origin ("survey"). The data is organized by year (specified as both calendar "year" and "bio_year", running from May 1st to April 30th), coordinates, and state. Additional columns define whether slf was found (even as an anecdotal individual record) at that location ("slf_present"), whether an established population was found there ("slf_established"), and what population density was ("slf_density"). For additional information on the variables included, please consult the help file associated with the data by typing `?lyde` in the RStudio console. A Metadata file can also be found in the compressed folder `lyde_data.zip` contained in `download_data/`.
+Each data point contains information on its source and specific dataset of origin ("survey"). The data is organized by year (specified as both calendar "year" and "bio_year", running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, "slf_present"), whether an established population was found there ("slf_established"), and what the estimated population density of SLF was there ("slf_density"). For additional information on the variables included, please consult the help file associated with the data by typing `?lyde` in the RStudio console. A Metadata file can also be found in the compressed folder `lyde_data.zip` contained in `download_data/`.
 
-The package function `data_summary` breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
+The package function `data_summary()` breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
 
 ```{r data by year and state, results = "asis", fig.cap = "Data by Biological year and State"}
 # data by Year and State
-knitr::kable(table(lyde$state, lyde$bio_year, useNA = "ifany"))
+knitr::kable(data_summary(year_type = "biological"))
 ```
 
 
@@ -78,40 +65,96 @@ knitr::kable(table(lyde$state, lyde$bio_year, useNA = "ifany"))
 
 Two functions allow the user to plot the data: `map_spread()` and `map_yearly`.
 
-### `map_yearly()`
+The first function produces a snapshot of the SLF spread in the United States, with reference to the sampling effort associated with surveying the spread. Surveys finding an established population are plotted on the map as filled tiles, color coded by the year of first discovery. Surveys finding no established population are plotted as grey tiles.
 
-The first function produces a snapshot of the SLF spread in the United States, with reference to the sampling effort associated with surveying the spread. Surveyed finding an established population are plotted on the map as filled circles, color coded by the year of first discovery. Surveys finding no established population are plotted as grey crosses.
+As the plotting of the data might take a long time to display within R, we encourage the user to assign the map and save it as a pdf instead, like we show below.
 
-```{r single map, fig.cap = "Map of SLF records", fig.height = 8, fig.width = 7.5}
-# We can now proceed to plotting
-map_spread()
+```{r assigning object map_1, message = FALSE, results = "hide"}
+# assigning the map
+map_1 <- map_spread()
 ```
 
-The function can be customized to show the data gridded at higher spatial resolution (10k^2^), by setting the option `resolution` to "10k".
+The map can be saved as a pdf file a high resolution (this file will be saved in the `vignettes` folder).
 
-```{r map at 10k, fig.cap = "Map of SLF records at 10km resolution", fig.height = 8, fig.width = 7.5}
-map_spread(resolution = "10k")
+```{r saving map_1, message = FALSE, results = "hide", eval=FALSE}
+# saving the map as a pdf
+pdf("Map_spread.pdf", width = 7.5, height = 8)
+map_1
+dev.off()
 ```
 
-In addition, the user can specify which area of the United States should be mapped, by setting the `zoom` variable to "custom" and specifying the boundaries of the mapped area through `xlim_coord` (longitude) and `ylim_coord` (latitude).
 
-```{r map at 10k_2, fig.cap = "Map of SLF records at 10km resolution", fig.height = 8, fig.width = 7.5}
-map_spread(resolution = "1k",
+```{r 10k map displaying, results = "hide", message = FALSE, fig.cap = "Output of the `map_spread()` function, plotted at the 10km resolution", fig.width=6.5, fig.height=7}
+# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+map_1
+```
+
+The default function displays data aggregated at the 10km^2^ (Figure 1). The function can be customized to show the data at higher spatial resolution (1k^2^), by setting the function option `resolution` to "1k". This will take considerably longer, so saving the result as a pdf is preferable in this instance as well.
+
+
+```{r assigning object map 2,  message = FALSE, results = "hide"}
+map_2 <- map_spread(resolution = "1k")
+```
+
+
+```{r saving map_2 as pdf,  message = FALSE, results = "hide", eval=FALSE}
+pdf("Map_spread_1k.pdf", width = 7.5, height = 8)
+map_2
+dev.off()
+```
+
+```{r displaying 1k map,  results = "hide", message = FALSE, fig.cap = "Output of the `map_spread()` function now plotted at a finer 1km resolution", fig.width=6.5, fig.height=7}
+# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+map_2
+```
+
+
+The function displays data in a slightly different fashion at the 1km^2^ resolution (Figure 2). At 10km^2^ the data is plotted at filled tiles. This improves the visualization by representing the grid in which the data is organized more clearly. As tiles of size 1km are much smaller, we prefer to display survey points at this resolution as points on the map.
+
+If the user wishes to visualize the data for a smaller area of the United States, the function allows them to specify which area should be mapped, by setting the `zoom` variable to "custom" and specifying the boundaries of the mapped area through `xlim_coord` (longitude) and `ylim_coord` (latitude), as Laongitude and Latitude coordinates using the WG84 projection. Here's an example of how this can be achieved.
+
+```{r zoomed map assigned, message = FALSE, results = "hide"}
+# assigning object
+map_3 <- map_spread(resolution = "1k",
            zoom = "custom",
            xlim_coord = c(-78, -74),
            ylim_coord = c(38, 42))
 ```
 
-### `map_yearly()`
-
-The second function allows the user to visualize the progression of SLF establishment, and the collection of surveys, over time. Note that the data here is not cumulative, meaning only data from a given year is shown in a panel of the figure.
-
-```{r density map, fig.cap = "Map of population density by Year", fig.height = 7, fig.width=7}
-# running year-specific map
-# map_yearly()
+```{r saving map_3 as pdf, message = FALSE, results = "hide", eval=FALSE}
+# saving to pdf
+pdf("Map_spread_1k_zoomed.pdf", width = 7.5, height = 8)
+map_3
+dev.off()
 ```
 
 
+```{r displaying zoomed in map,  results = "hide", message = FALSE, fig.cap = "Zoomed area, focusing on the core of the invasion range", fig.width=6.5, fig.height=7}
+# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+map_3
+```
+
+The second function, `map_yearly()` allows the user to visualize the progression of SLF establishment, with a focus on the estimated population density through time. Note that the data here is not cumulative, meaning only data from a given year is shown in any given panel of the figure.
+
+```{r assigning density map, message = FALSE, results = "hide"}
+# running year-specific map
+# assigning object
+map_4 <- map_yearly()
+```
+
+
+```{r saving map, message = FALSE, results = "hide", eval = FALSE}
+# saving to pdf
+pdf("Map_yearly.pdf", width = 7.5, height = 8)
+map_4
+dev.off()
+```
+
+
+```{r displaying yearly map,  results = "hide", message = FALSE, fig.cap = "Yearly map of recorded population density", fig.width=4.5, fig.height=4.5}
+# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+# map_4
+```
 
 
 

@@ -5,5 +5,5 @@
 /man
 /docs
 Icon?
-
 docs
+/vignettes/*.pdf
