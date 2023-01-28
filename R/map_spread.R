@@ -68,9 +68,9 @@ states$code <- state_abbr$state.abb
 ### Selecting appropriate dataset based on resolution specified ###
 
 if(resolution == "1k"){
-  data <- lydemap::lyde
+  data <- lydemapr::lyde
 } else if(resolution == "10k"){
-  data <- lydemap::lyde_10k
+  data <- lydemapr::lyde_10k
 } else {stop("Wrong resolution specified. Please select '1k' or '10k'")}
 
 

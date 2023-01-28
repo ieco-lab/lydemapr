@@ -1,14 +1,14 @@
 ---
-title: "`lydemap`: an R package to map <i>Lycorma delicatula</i>"
+title: "`lydemapr`: an R package to map <i>Lycorma delicatula</i>"
 output:
-  pdf_document:
-    toc: TRUE
-    toc_depth: 3
   html_document:
     toc: TRUE
     toc_depth: 3
     toc_float: true
     theme: united
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
 params:
   show_code: FALSE
 author: 
@@ -29,15 +29,15 @@ knitr::opts_chunk$set(dev = "png", dpi = 100, echo = params$show_code)
 
 The Spotted lanternfly (*Lycorma delicatula*, White 1841) is an agricultural pest native of China and Southeast Asia, first discovered in the United states in 2014 in Berks County, PA (REFS). Since then, this planthopper has spread throughout the Mid-Atlantic and Midwest regions of the country, threatening the wine and fruit industry and damaging ornamental trees.
 
-Since its first discovery, many sources have collected data on the presence/absence and population density of this species in order to monitor its spread and impact. The `lydemap` package contains two anonymized datasets (at 1 km^2^ and 10 km^2^ resolution) resulting from an effort to combine, organize, and aggregate all available sources of data. In addition, this package contains useful functions to visualize the data within R.
+Since its first discovery, many sources have collected data on the presence/absence and population density of this species in order to monitor its spread and impact. The `lydemapr` package contains two anonymized datasets (at 1 km^2^ and 10 km^2^ resolution) resulting from an effort to combine, organize, and aggregate all available sources of data. In addition, this package contains useful functions to visualize the data within R.
 
-The `lydemap` package was built with the intent to increase accessibility to key data on this species of interest, and to improve reproducibility and consistency of modeling efforts.
+The `lydemapr` package was built with the intent to increase accessibility to key data on this species of interest, and to improve reproducibility and consistency of modeling efforts.
 
 We are constantly looking to expand the data sources to have a full representation of SLF's presence and abundance in the US. If you wish to contribute to this effort please contact the package authors.
 
 ```{r packages and data, include = params$show_code, message = FALSE, warning = FALSE}
 # attaching necessary packages
-library(lydemap)
+library(lydemapr)
 library(sf)
 library(tidyverse)
 library(tigris)
@@ -48,16 +48,16 @@ library(tigris)
 To begin, let's take a look at the data structure:
 
 ```{r data glance}
-head(lydemap::lyde)
+head(lydemapr::lyde)
 ```
 
 Each data point contains information on its source and specific dataset of origin ("survey"). The data is organized by year (specified as both calendar "year" and "bio_year", running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, "slf_present"), whether an established population was found there ("slf_established"), and what the estimated population density of SLF was there ("slf_density"). For additional information on the variables included, please consult the help file associated with the data by typing `?lyde` in the RStudio console. A Metadata file can also be found in the compressed folder `lyde_data.zip` contained in `download_data/`.
 
-The package function `data_summary()` breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
+The package function `lyde_summary()` breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
 
 ```{r data by year and state, results = "asis", fig.cap = "Data by Biological year and State"}
 # data by Year and State
-knitr::kable(data_summary(year_type = "biological"))
+knitr::kable(lyde_summary(year_type = "biological"))
 ```
 
 

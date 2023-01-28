@@ -42,13 +42,13 @@ map_yearly <- function(year_type = "biological",
 
   if(year_type == "biological"){
 
-  data <- lyde_10k %>%
+  data <- lydemapr::lyde_10k %>%
     dplyr::filter(!is.na(lyde_density)) %>%
     dplyr::rename(time = bio_year)
 
   } else if(year_type == "calendar"){
 
-    data <- lyde_10k %>%
+    data <- lydemapr::lyde_10k %>%
       dplyr::filter(!is.na(lyde_density)) %>%
       dplyr::rename(time = year)
 
