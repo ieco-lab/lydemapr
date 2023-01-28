@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mapping the Spread of Lycorma delicatula • lydemap</title>
+<title>Mapping the Spread of Lycorma delicatula • lydemapr</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -32,7 +32,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">lydemap</a>
+        <a class="navbar-link" href="index.html">lydemapr</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
@@ -49,7 +49,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="articles/010_lydemap_intro.html">Introduction to lydemap</a>
+  <a href="articles/010_lydemapr_intro.html">Introduction to lydemap</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -60,7 +60,7 @@
   </a>
 </li>
 <li>
-  <a href="https://ieco-lab.github.io/lydemap/" class="external-link">
+  <a href="https://ieco-lab.github.io/lydemapr/" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -81,7 +81,7 @@
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
 <p>The Spotted Lanternfly (<em>Lycorma delicatula</em>) is an invasive pest species in the North Eastern USA, first discovered in Berks County, PA, in 2014. Since its first discovery, several agencies (with the Pennsylvania Dept. of Agriculture, and the US Dept. of Agriculture in a leading role) have taken up the task to monitor and control SLF populations.</p>
-<p>The package <code>lydemap</code> combines survey datasets produced by different agencies in the United States (at the local, state, and federal level) into a single aggregated and anonymized dataset. This includes information on the approximate location where each survey was conducted, the provenance of the data point, as well as biologically relevant results of the surveys (presence/absence of the Spotted Lanternfly, presence of an established population, and estimated population density of this pest).</p>
+<p>The package <code>lydemapr</code> combines survey datasets produced by different agencies in the United States (at the local, state, and federal level) into a single aggregated and anonymized dataset. This includes information on the approximate location where each survey was conducted, the provenance of the data point, as well as biologically relevant results of the surveys (presence/absence of the Spotted Lanternfly, presence of an established population, and estimated population density of this pest).</p>
 <div class="section level3">
 <h3 id="how-to-use-this-project">How to use this project<a class="anchor" aria-label="anchor" href="#how-to-use-this-project"></a>
 </h3>
@@ -89,20 +89,25 @@
 <div class="section level4">
 <h4 id="1-downloading-the-data-only">1. Downloading the data only<a class="anchor" aria-label="anchor" href="#1-downloading-the-data-only"></a>
 </h4>
-<p>The data itself can be obtained separately by downloading the compressed folder <code>/download_data</code> directly form <a href="https://github.com/ieco-lab/lydemap" class="external-link">this github page</a>. The folder contains a compressed folder with two version of the data in <code>.csv</code> format, alongside a Metadata file to understand and use the data.</p>
+<p>The data itself can be obtained separately by downloading the compressed folder <code>/download_data</code> directly form <a href="https://github.com/ieco-lab/lydemap" class="external-link">this github page</a>. Access the folder <code>/download_data</code>, then <code>lyde_data.zip</code>, then click download on the right side of the page. The folder contains a compressed folder with two version of the data in <code>.csv</code> format, alongside a Metadata file to understand and use the data.</p>
 </div>
 <div class="section level4">
 <h4 id="2-installing-the-package-in-r">2. Installing the package in R<a class="anchor" aria-label="anchor" href="#2-installing-the-package-in-r"></a>
 </h4>
-<p>The package <code>lydemap</code> can be installed by the user in an instance of R or RStudio by typing.</p>
+<p>The package <code>lydemapr</code> can be installed by the user in an instance of R or RStudio by typing.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ieco-lab/lydemap"</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># install.packages("devtools") # if devtools is not installed yet</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ieco-lab/lydemapr"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ieco-lab/lydemap" class="external-link">lydemapr</a></span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="3-cloning-the-package-locally">3. Cloning the package locally<a class="anchor" aria-label="anchor" href="#3-cloning-the-package-locally"></a>
 </h4>
-<p>If the user wishes to access the full content of the package, <code>lydemap</code> needs to be cloned locally. To do so, open your Terminal or git shell, and <code>cd</code> to the appropriate folder where you want the project to be stored. Then, type:</p>
-<pre><code>git clone https://github.com/ieco-lab/lydemap.git</code></pre>
+<p>If the user wishes to access the full content of the package, they can clone <code>lydemapr</code> locally. To do so, open your Terminal or git shell, and <code>cd</code> to the appropriate folder where you want the project to be stored. Then, type:</p>
+<pre><code>git clone https://github.com/ieco-lab/lydemapr.git</code></pre>
+<p>Once the package is cloned, the content of the package can be accessed by opening the project file <code>lydemapr.Rproj</code> in RStudio. <code>lydemapr</code> can be installed directly in R through the Build tab, clicking “Install Package”. Alternatively the user can type in the Console:</p>
+<pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<p>This will generate a prompt asking whether the package dependencies should be updated.</p>
 </div>
 </div>
 </div>
@@ -114,7 +119,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/ieco-lab/lydemap/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/ieco-lab/lydemap/issues" class="external-link">Report a bug</a></li>
-<li><a href="https://ieco-lab.github.io/lydemap/" class="external-link">Browse source code here</a></li>
+<li><a href="https://ieco-lab.github.io/lydemapr/" class="external-link">Browse source code here</a></li>
 </ul>
 </div>
 
@@ -129,7 +134,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing lydemap</a></li>
+<li><a href="authors.html#citation">Citing lydemapr</a></li>
 </ul>
 </div>
 
