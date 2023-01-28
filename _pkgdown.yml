@@ -3,7 +3,7 @@
 home:
   links:
     - text: Browse source code here
-      href: https://ieco-lab.github.io/lydemap/
+      href: https://ieco-lab.github.io/lydemapr/
 
 ### * template
 
@@ -20,11 +20,11 @@ navbar:
     - text: "Reference"
       href: reference/index.html
     - text: "Introduction to lydemap"
-      href: articles/010_lydemap_intro.html
+      href: articles/010_lydemapr_intro.html
 
 
   right:
     - icon: fa-gitlab fa-lg
       href:
     - icon: fa-github fa-lg
-      href: https://ieco-lab.github.io/lydemap/
+      href: https://ieco-lab.github.io/lydemapr/

@@ -11,16 +11,16 @@
 #'## Examples
 #'
 
-data_summary <- function(year_type = "biological"){
+lyde_summary <- function(year_type = "biological"){
 
   if(year_type == "biological"){
 
-    table(lydemap::lyde$state, lydemap::lyde$bio_year,
+    table(lydemapr::lyde$state, lydemapr::lyde$bio_year,
           useNA = "ifany")
 
   }else if(year_type == "calendar"){
 
-    table(lydemap::lyde$state, lydemap::lyde$year,
+    table(lydemapr::lyde$state, lydemapr::lyde$year,
           useNA = "ifany")
 
   }else{stop("Please specify a suitable `year_type`: 'biological' or 'calendar'")}
