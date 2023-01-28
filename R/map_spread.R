@@ -18,7 +18,7 @@
 
 
 
-map_spread <- function(resolution = "1k",
+map_spread <- function(resolution = "10k",
                        zoom = "range",
                        xlim_coord = NULL, ylim_coord = NULL,
                        rarefy = TRUE,
@@ -34,17 +34,18 @@ map_spread <- function(resolution = "1k",
 
 
 if(print_message){
-  print("Please be patient: the large dataset might cause the map to be slow to load")
+  print("Please be patient: the large dataset might cause the map to load slowly")
 }
-
 ## Setting up ##
 # First some preparations:
 
 ### Loading background maps ###
 
 # extracting a map of the states
-states <- tigris::states() %>%
-  select(ID = NAME, geometry)
+suppressMessages(
+  states <- tigris::states() %>%
+    select(ID = NAME, geometry)
+)
 # finding centroids for label positions
 suppressWarnings(
   states <- cbind(states, st_coordinates(st_centroid(states)))
@@ -67,9 +68,9 @@ states$code <- state_abbr$state.abb
 ### Selecting appropriate dataset based on resolution specified ###
 
 if(resolution == "1k"){
-  data <- lyde
+  data <- lydemap::lyde
 } else if(resolution == "10k"){
-  data <- lyde_10k
+  data <- lydemap::lyde_10k
 } else {stop("Wrong resolution specified. Please select '1k' or '10k'")}
 
 
@@ -81,7 +82,7 @@ if(any(rarefy,
        resolution == "10k")){
 
   data_established <- data %>%
-    dplyr::filter(slf_established) %>%
+    dplyr::filter(lyde_established) %>%
     dplyr::group_by(latitude, longitude) %>%
     dplyr::summarise(
       bio_year = min(bio_year),
@@ -90,16 +91,16 @@ if(any(rarefy,
   data_surveyed <- data %>%
     dplyr::group_by(latitude, longitude) %>%
     dplyr::summarise(
-      slf_established = any(slf_established),
+      lyde_established = any(lyde_established),
       .groups = "keep") %>%
-    dplyr::filter(!slf_established)
+    dplyr::filter(!lyde_established)
 
 } else {
 
   data_established <- data %>%
-    dplyr::filter(slf_established)
+    dplyr::filter(lyde_established)
   data_surveyed <- data %>%
-    dplyr::filter(!slf_established)
+    dplyr::filter(!lyde_established)
 
 }
 
@@ -110,13 +111,13 @@ if(zoom == "full"){
   xlim_coord <- NULL
   ylim_coord <- NULL
 } else if(zoom == "range"){
-  xlim_coord <- data %>% filter(slf_established) %>% pull(longitude) %>% range()
+  xlim_coord <- data %>% filter(lyde_established) %>% pull(longitude) %>% range()
   # tweaking to space map a little
   xlim_coord[1] <- xlim_coord[1] - diff(xlim_coord)*0.1
   xlim_coord[2] <- xlim_coord[2] + diff(xlim_coord)*0.1
 
-  ylim_coord <- data %>% filter(slf_established) %>% pull(latitude) %>% range()
-  # tweaking again
+  ylim_coord <- data %>% filter(lyde_established) %>% pull(latitude) %>% range()
+  # tweaking the other coordinate
   ylim_coord[1] <- ylim_coord[1] - diff(ylim_coord)*0.5
   ylim_coord[2] <- ylim_coord[2] + diff(ylim_coord)*0.5
 } else if(zoom == "custom"){
@@ -130,7 +131,7 @@ if(zoom == "full"){
 
 if(resolution == "1k"){
 
-  ggplot() +
+  g <-  ggplot() +
     geom_sf(data = states, fill = "white") +
     coord_sf(xlim = xlim_coord, ylim = ylim_coord, expand = FALSE) +
     geom_point(data = data_surveyed,
@@ -148,11 +149,12 @@ if(resolution == "1k"){
                                                      shape = 15)))+
     theme(legend.position = c(0.9,0.2),
           panel.grid = element_blank(),
-          legend.key=element_rect(fill=NA))
+          legend.key=element_rect(fill=NA),
+          panel.background = element_rect(fill = 'white', color = 'white'))
 
 } else if(resolution == "10k"){
 
-  ggplot() +
+  g <- ggplot() +
     geom_sf(data = states, fill = "white") +
     coord_sf(xlim = xlim_coord, ylim = ylim_coord, expand = FALSE) +
     geom_tile(data = data_surveyed,
@@ -169,10 +171,11 @@ if(resolution == "1k"){
                                                      shape = 15)))+
     theme(legend.position = c(0.9,0.2),
           panel.grid = element_blank(),
-          legend.key=element_rect(fill=NA))
+          legend.key=element_rect(fill=NA),
+          panel.background = element_rect(fill = 'white', color = 'white'))
 
 }
 
-
+return(g)
 
 }
