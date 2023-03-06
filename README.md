@@ -4,7 +4,7 @@ The Spotted Lanternfly (*Lycorma delicatula*) is an invasive pest species in the
 
 The package `lydemapr` combines survey datasets produced by different agencies in the United States (at the local, state, and federal level) into a single aggregated and anonymized dataset. This includes information on the approximate location where each survey was conducted, the provenance of the data point, as well as biologically relevant results of the surveys (presence/absence of the Spotted Lanternfly, presence of an established population, and estimated population density of this pest).
 
-### Citation
+#### Citation
 De Bona, S., L. Barringer, P. Kurtz, J. Losiewicz, G.R. Parra, & M.R. Helmus. [lydemapr: an R package to track the spread of the invasive Spotted Lanternfly (Lycorma delicatula, White 1845) (Hemiptera, Fulgoridae) in the United States](https://www.biorxiv.org/content/10.1101/2023.01.27.525992v1). bioRxiv, 2023.01.27.525992
 
 ### How to use this project
