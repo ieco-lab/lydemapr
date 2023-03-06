@@ -7,6 +7,7 @@ The package `lydemapr` combines survey datasets produced by different agencies i
 #### Citation
 De Bona, S., L. Barringer, P. Kurtz, J. Losiewicz, G.R. Parra, & M.R. Helmus. [lydemapr: an R package to track the spread of the invasive Spotted Lanternfly (Lycorma delicatula, White 1845) (Hemiptera, Fulgoridae) in the United States](https://www.biorxiv.org/content/10.1101/2023.01.27.525992v1). bioRxiv, 2023.01.27.525992
 
+
 ### How to use this project
 
 There are three ways to obtain the package and the data associated with it.
