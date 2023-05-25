@@ -1,0 +1,30 @@
+Metadata for the files "lyde.csv" and "lyde_10k.csv". "lyde_10k.csv" represents a coarser, rarefied version of the "lyde.csv" dataset. Variables below characterized by the symbol (*) are present in "lyde_10k.csv", and are a subset of the variables contained in "lyde.csv"
+
+
+
+Variables included in "lyde.csv":
+
+- source: 	character variable defining in broad terms the source of the data. “inat” for data obtained from iNaturalist, “PA” from data originating from the Pennsylvania Dept. of Agriculture’s surveying and management effort, “prt” for data collected through public reporting platforms, “states” for data collected by state-level agencies other than PDA, “USDA” for data provided by the United States Dept of Agriculture. Note: the data originating from the Pennsylvania Dept. of Agriculture is kept separate from data collected by other states, as Pennsylvania was the state were the first introduction was detected. Because of this, initial surveying efforts were led by this state, which collected the largest share of data early on.
+
+- source_agency: 	character variable refining the definition of the source by indicating the agency/institution/project from which the data point was obtained: possible values are “iNaturalist”, “PDA” (Pennsylvania Dept. of Agriculture), "NJDA_Public_reporting" (New Jersey Dept. of Agriculture’s Public Reporting tool), “PDA_Public_reporting” (Pennsylvania Dept. of Agriculture’s Public Reporting tool), “DDA” (Delaware Dept. of Agriculture), “ISDA” (Indiana State Dept. of Agriculture), “MDA” (Maryland Dept. of Agriculture), “NYSDAM” (New York State Dept. of Agriculture and Markets), “VDA” (Virginia Department of Agriculture and Consumer Services), “VA_Tech_Coop_Ext” (Virginia Polythecnic and State University/Cooperative Extension), “USDA”.
+
+- collection_method: 	character string defining the method used to collect data: “individual_reporting” for data collected through iNaturalist and public reporting tools, and “field_survey/management” for data collected by agencies in the field. The accuracy of self-reporting data might be lower than that collected by field surveyors.
+
+- year:		integer value defining the calendar year when the information was collected
+
+- bio_year (*): 	integer defining the biological year when the information was collected. The biological year follows the species’ development schedule and starts around the time of the emergence of first–instar nymphs (May 1st–April 30th).
+
+- latitude (*): 	expressed in decimal degrees (WSG84 coordinate system)
+
+- longitude (*): 	expressed in decimal degrees (WSG84 coordinate system)
+
+- state: 	character defining the state where the data was collected (two-letter abbreviation, https://www.faa.gov/air_traffic/publications/atpubs/cnt_html/appendix_a.html)
+
+- lyde_present (*): 	logical value defining whether records are present for spotted lanternfly at the site at the time of survey. These might include regulatory incidents where a single live individual or a small number of dead individuals were observed at the site, but no signs of established population could be detected. (In "lyde_10k.csv" this is defined as TRUE if any point in the 10k grid cell is TRUE for lyde_present).
+
+- lyde_established (*): 	logical value defining whether signs of an established population are present at the site at the time of survey. These include a minimum of 2 alive individuals or the presence of an egg mass as per the working definition of establishment provided by the USDA. (In "lyde_10k.csv" this is defined as TRUE if any point in the 10k grid cell is TRUE for lyde_established).
+
+- lyde_density (*): 	ordinal variable defining the population density of spotted lanternfly at the site, estimated directly as an ordinal category by the data collector or derived from count data. The categories include: “Unpopulated”, indicating the absence of an established population at the site (but not excluding the presence of spotted lanternfly in the form of regulatory incidents); “Low”, indicating an established population is present but at low densities, reflecting at most about 30 individuals or a single egg mass; “Medium”, indicating the population is established and at higher densities, but still at low enough population size to allow for a counting of the individuals during a survey visit (a few hundred at most); “High”, indicating the population is established and thriving, and the area is generally infested, to a degree where a count of individuals would be unfeasible within a survey visit. (In "lyde_10k.csv" this is defined as the highest ordinal value among all points in the 10k grid cell).
+
+- pointID: character string uniquely identifying each data point.
+
