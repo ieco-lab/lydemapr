@@ -1,14 +1,14 @@
 ---
 title: "`lydemapr`: an R package to map <i>Lycorma delicatula</i>"
 output:
+  pdf_document:
+    toc: TRUE
+    toc_depth: 3
   html_document:
     toc: TRUE
     toc_depth: 3
     toc_float: true
     theme: united
-  pdf_document:
-    toc: TRUE
-    toc_depth: 3
 params:
   show_code: FALSE
 author: 
@@ -51,7 +51,7 @@ To begin, let's take a look at the data structure:
 head(lydemapr::lyde)
 ```
 
-Each data point contains information on its source and specific dataset of origin ("survey"). The data is organized by year (specified as both calendar "year" and "bio_year", running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, "slf_present"), whether an established population was found there ("slf_established"), and what the estimated population density of SLF was there ("slf_density"). For additional information on the variables included, please consult the help file associated with the data by typing `?lyde` in the RStudio console. A Metadata file can also be found in the compressed folder `lyde_data.zip` contained in `download_data/`.
+Each data point contains information on its source and specific dataset of origin ("survey"). The data is organized by year (specified as both calendar "year" and "bio_year", running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, "lyde_present"), whether an established population was found there ("lyde_established"), and what the estimated population density of SLF was there ("lyde_density"). For additional information on the variables included, please consult the help file associated with the data by typing `?lyde` in the RStudio console. A Metadata file can also be found in the compressed folder `lyde_data.zip` contained in `download_data/`.
 
 The package function `lyde_summary()` breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It's important to notice that the data is arranged yearly according to the **biological year** of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year's summer/fall. 
 
@@ -74,7 +74,7 @@ As the plotting of the data might take a long time to display within R, we encou
 map_1 <- map_spread()
 ```
 
-The map can be saved as a pdf file a high resolution (this file will be saved in the `vignettes` folder).
+The map can be saved as a pdf file at high resolution.
 
 ```{r saving map_1, message = FALSE, results = "hide", eval=FALSE}
 # saving the map as a pdf
