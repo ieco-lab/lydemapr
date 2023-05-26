@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lydemapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -86,9 +86,9 @@
                         <h4 data-toc-skip class="author">Matthew R. Helmus<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
 </h4>
             
-            <h4 data-toc-skip class="date">06 March 2023</h4>
+            <h4 data-toc-skip class="date">26 May 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ieco-lab/lydemap/blob/HEAD/vignettes/010_lydemapr_intro.Rmd" class="external-link"><code>vignettes/010_lydemapr_intro.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ieco-lab/lydemapr/blob/HEAD/vignettes/010_lydemapr_intro.Rmd" class="external-link"><code>vignettes/010_lydemapr_intro.Rmd</code></a></small>
       <div class="hidden name"><code>010_lydemapr_intro.Rmd</code></div>
 
     </div>
@@ -108,19 +108,18 @@
 </h2>
 <p>To begin, let’s take a look at the data structure:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 14</span></span></span>
-<span><span class="co">##   source  year bio_year latitude longitude state lyde_…¹ lyde_…² lyde_…³ sourc…⁴</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> inat    <span style="text-decoration: underline;">2</span>015     <span style="text-decoration: underline;">2</span>015     40.4     -<span style="color: #BB0000;">75.7</span> PA    TRUE    FALSE   Unpopu… iNatur…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.3     -<span style="color: #BB0000;">75.6</span> PA    TRUE    FALSE   Unpopu… iNatur…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.4     -<span style="color: #BB0000;">75.5</span> PA    TRUE    FALSE   Unpopu… iNatur…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.4     -<span style="color: #BB0000;">75.6</span> PA    TRUE    FALSE   Unpopu… iNatur…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.4     -<span style="color: #BB0000;">75.7</span> PA    TRUE    FALSE   Unpopu… iNatur…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.5     -<span style="color: #BB0000;">75.6</span> PA    TRUE    FALSE   Unpopu… iNatur…</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 4 more variables: collection_method &lt;chr&gt;, pointID &lt;chr&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   rounded_longitude_10k &lt;dbl&gt;, rounded_latitude_10k &lt;dbl&gt;, and abbreviated</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   variable names ¹​lyde_present, ²​lyde_established, ³​lyde_density,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ⁴​source_agency</span></span></span></code></pre>
-<p>Each data point contains information on its source and specific dataset of origin (“survey”). The data is organized by year (specified as both calendar “year” and “bio_year”, running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, “slf_present”), whether an established population was found there (“slf_established”), and what the estimated population density of SLF was there (“slf_density”). For additional information on the variables included, please consult the help file associated with the data by typing <code>?lyde</code> in the RStudio console. A Metadata file can also be found in the compressed folder <code>lyde_data.zip</code> contained in <code>download_data/</code>.</p>
+<span><span class="co">##   source  year bio_year latitude longitude state lyde_present lyde_established</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> inat    <span style="text-decoration: underline;">2</span>015     <span style="text-decoration: underline;">2</span>015     40.4     -<span style="color: #BB0000;">75.7</span> PA    TRUE         FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.3     -<span style="color: #BB0000;">75.6</span> PA    TRUE         FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.4     -<span style="color: #BB0000;">75.5</span> PA    TRUE         FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.4     -<span style="color: #BB0000;">75.6</span> PA    TRUE         FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.4     -<span style="color: #BB0000;">75.7</span> PA    TRUE         FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> inat    <span style="text-decoration: underline;">2</span>016     <span style="text-decoration: underline;">2</span>016     40.5     -<span style="color: #BB0000;">75.6</span> PA    TRUE         FALSE           </span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 6 more variables: lyde_density &lt;fct&gt;, source_agency &lt;chr&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   collection_method &lt;chr&gt;, pointID &lt;chr&gt;, rounded_longitude_10k &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   rounded_latitude_10k &lt;dbl&gt;</span></span></span></code></pre>
+<p>Each data point contains information on its source and specific dataset of origin (“survey”). The data is organized by year (specified as both calendar “year” and “bio_year”, running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, “lyde_present”), whether an established population was found there (“lyde_established”), and what the estimated population density of SLF was there (“lyde_density”). For additional information on the variables included, please consult the help file associated with the data by typing <code>?lyde</code> in the RStudio console. A Metadata file can also be found in the compressed folder <code>lyde_data.zip</code> contained in <code>download_data/</code>.</p>
 <p>The package function <code>lyde_summary()</code> breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It’s important to notice that the data is arranged yearly according to the <strong>biological year</strong> of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year’s summer/fall.</p>
 <table class="table">
 <thead><tr class="header">
@@ -419,7 +418,7 @@
 <p>Two functions allow the user to plot the data: <code>map_spread()</code> and <code>map_yearly</code>.</p>
 <p>The first function produces a snapshot of the SLF spread in the United States, with reference to the sampling effort associated with surveying the spread. Surveys finding an established population are plotted on the map as filled tiles, color coded by the year of first discovery. Surveys finding no established population are plotted as grey tiles.</p>
 <p>As the plotting of the data might take a long time to display within R, we encourage the user to assign the map and save it as a pdf instead, like we show below.</p>
-<p>The map can be saved as a pdf file a high resolution (this file will be saved in the <code>vignettes</code> folder).</p>
+<p>The map can be saved as a pdf file at high resolution.</p>
 <div class="figure">
 <img src="010_lydemapr_intro_files/figure-html/10k%20map%20displaying-1.png" alt="Output of the `map_spread()` function, plotted at the 10km resolution" width="650"><p class="caption">
 Output of the <code>map_spread()</code> function, plotted at the 10km resolution
