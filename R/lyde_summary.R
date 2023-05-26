@@ -5,7 +5,6 @@
 #'@export
 #'
 #'@param year_type String defining whether to use the biological year definition ("biological", May 1st - April 30th, default) or the calendar year when faceting the figure ("calendar").
-#'@param
 #'@return A table summarizing the number of datapoints collected each year by state
 #'@examples
 #'## Examples
