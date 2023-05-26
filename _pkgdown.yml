@@ -19,8 +19,8 @@ navbar:
       href: index.html
     - text: "Reference"
       href: reference/index.html
-    - text: "Introduction to lydemap"
-      href: articles/010_lydemapr_intro.html
+    - text: "Introduction to lydemapr"
+      href: articles/introduction.html
 
 
   right:
