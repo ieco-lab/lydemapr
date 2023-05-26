@@ -23,9 +23,11 @@ The package `lydemapr` can be installed by the user in an instance of R or RStud
 ```
 require(devtools)
 # install.packages("devtools") # if devtools is not installed yet
-devtools::install_github("ieco-lab/lydemapr")
+devtools::install_github("ieco-lab/lydemapr", build_vignettes = TRUE)
 library(lydemapr)
 ```
+At the user's discretion, the argument `build_vignettes` can be set to `FALSE` to prevent the vignettes from being rendered. A rendered pdf of the vignettes is included in the `download_data/` folder.
+
 
 #### 3. Cloning the package locally
 
@@ -39,7 +41,29 @@ git clone https://github.com/ieco-lab/lydemapr.git
 Once the package is cloned, the content of the package can be accessed by opening the project file `lydemapr.Rproj` in RStudio. `lydemapr` can be installed directly in R through the Build tab, clicking "Install Package". Alternatively the user can type in the Console:
 
 ```
-devtools::install()
+devtools::install(build_vignettes = TRUE)
 ```
 
-This will generate a prompt asking whether the package dependencies should be updated.
+This will generate a prompt asking whether the package dependencies should be updated. As mentioned above, the argument `build_vignettes` can be omitted (set to `FALSE` by default) to prevent the rendering of the package vignette. A rendered .pdf copy of the vignette is stored in the folder `download_data/`
+
+#### 4. Accessing package documentation
+
+The functions included in the package can be listed using
+
+```
+library(lydemapr)
+ls("package:lydemapr")
+```
+
+The help file for any functions can be accessed through typing the function name preceded by a quotation mark, for example
+
+```
+?map_spread
+```
+
+Additionally, the package vignette, showcasing how the package functions can be used, can be accessed with
+
+```
+vignette("introduction", package = "lydemapr")
+# NOTE! This will only work if the argument "build_vignettes = TRUE" was specified during installation
+```
