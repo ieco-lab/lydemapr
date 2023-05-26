@@ -2,13 +2,13 @@
 title: "`lydemapr`: an R package to map <i>Lycorma delicatula</i>"
 output: rmarkdown::html_vignette
 params:
-  show_code: FALSE
+  show_code: TRUE
 author: 
-    - "Sebastiano De Bona^[Temple University, sebastiano.debona@temple.edu]"
+    - "Sebastiano De Bona^[Temple University, sebastiano.debona@gmail.com]"
     - "Matthew R. Helmus^[Temple University, mrhelmus@temple.edu]"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 vignette: >
-  %\VignetteIndexEntry{my-vignette}
+  %\VignetteIndexEntry{introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
