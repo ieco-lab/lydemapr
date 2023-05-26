@@ -18,4 +18,16 @@
   <url>
     <loc>/reference/index.html</loc>
   </url>
+  <url>
+    <loc>/reference/lyde.html</loc>
+  </url>
+  <url>
+    <loc>/reference/lyde_summary.html</loc>
+  </url>
+  <url>
+    <loc>/reference/map_spread.html</loc>
+  </url>
+  <url>
+    <loc>/reference/map_yearly.html</loc>
+  </url>
 </urlset>
