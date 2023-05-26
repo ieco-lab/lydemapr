@@ -23,7 +23,7 @@ knitr::opts_chunk$set(dev = "png", dpi = 100, echo = params$show_code)
 
 ## Introduction
 
-The Spotted lanternfly (*Lycorma delicatula*, White 1841) is an agricultural pest native of China and Southeast Asia, first discovered in the United states in 2014 in Berks County, PA (REFS). Since then, this planthopper has spread throughout the Mid-Atlantic and Midwest regions of the country, threatening the wine and fruit industry and damaging ornamental trees.
+The Spotted lanternfly (*Lycorma delicatula*, White 1841) is an agricultural pest native of China and Southeast Asia, first discovered in the United states in 2014 in Berks County, PA. Since then, this planthopper has spread throughout the Mid-Atlantic and Midwest regions of the country, threatening the wine and fruit industry and damaging ornamental trees.
 
 Since its first discovery, many sources have collected data on the presence/absence and population density of this species in order to monitor its spread and impact. The `lydemapr` package contains two anonymized datasets (at 1 km^2^ and 10 km^2^ resolution) resulting from an effort to combine, organize, and aggregate all available sources of data. In addition, this package contains useful functions to visualize the data within R.
 
@@ -81,7 +81,10 @@ dev.off()
 
 
 ```{r 10k map displaying, results = "hide", message = FALSE, fig.cap = "Output of the `map_spread()` function, plotted at the 10km resolution", fig.width=6.5, fig.height=7}
-# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+# If executing this line while running the vignette manually,
+# be advised that it might take a considerable amount of time 
+# for the map to be displayed. 
+# It's advised to visualize the pdf file saved above.
 map_1
 ```
 
@@ -100,7 +103,10 @@ dev.off()
 ```
 
 ```{r displaying 1k map,  results = "hide", message = FALSE, fig.cap = "Output of the `map_spread()` function now plotted at a finer 1km resolution", fig.width=6.5, fig.height=7}
-# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+# If executing this line while running the vignette manually,
+# be advised that it might take a considerable amount of time 
+# for the map to be displayed. 
+# It's advised to visualize the pdf file saved above.
 map_2
 ```
 
@@ -126,7 +132,10 @@ dev.off()
 
 
 ```{r displaying zoomed in map,  results = "hide", message = FALSE, fig.cap = "Zoomed area, focusing on the core of the invasion range", fig.width=6.5, fig.height=7}
-# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+# If executing this line while running the vignette manually,
+# be advised that it might take a considerable amount of time 
+# for the map to be displayed. 
+# It's advised to visualize the pdf file saved above.
 map_3
 ```
 
@@ -147,8 +156,11 @@ dev.off()
 ```
 
 
-```{r displaying yearly map,  results = "hide", message = FALSE, fig.cap = "Yearly map of recorded population density", fig.width=4.5, fig.height=4.5}
-# If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.
+```{r displaying yearly map,  message = FALSE, fig.cap = "Yearly map of recorded population density", fig.width=3, fig.height=4, fig.align = "center"}
+# If executing this line while running the vignette manually,
+# be advised that it might take a considerable amount of time 
+# for the map to be displayed. 
+# It's advised to visualize the pdf file saved above.
 # map_4
 ```
 
