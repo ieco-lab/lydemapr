@@ -1,14 +1,14 @@
 Package: lydemapr
 Type: Package
 Title: Mapping the Spread of Lycorma delicatula
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person("Seba", "De Bona", email = "sebastiano.debona@temple.edu", role = c("cre", "aut")),
     person("Matt", "Helmus", email = "mrhelmus@temple.edu", role = "aut"))
 Maintainer: Seba De Bona <sebastiano.debona@temple.edu>
-URL: https://github.com/ieco-lab/lydemap,
-    https://ieco-lab.github.io/lydemap/
-BugReports: https://github.com/ieco-lab/lydemap/issues
+URL: https://github.com/ieco-lab/lydemapr,
+    https://ieco-lab.github.io/lydemapr/
+BugReports: https://github.com/ieco-lab/lydemapr/issues
 Description: This package contains aggregated, anonymized data on the presence/absence and population density of the Spotted Lanternfly (Lycorma delicatula) in the United States. The package contains functions to display the data through both table summaries and maps.
 License: CC-BY
 Imports:
