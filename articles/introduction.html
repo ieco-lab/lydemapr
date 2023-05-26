@@ -102,11 +102,19 @@
 <p>Since its first discovery, many sources have collected data on the presence/absence and population density of this species in order to monitor its spread and impact. The <code>lydemapr</code> package contains two anonymized datasets (at 1 km<sup>2</sup> and 10 km<sup>2</sup> resolution) resulting from an effort to combine, organize, and aggregate all available sources of data. In addition, this package contains useful functions to visualize the data within R.</p>
 <p>The <code>lydemapr</code> package was built with the intent to increase accessibility to key data on this species of interest, and to improve reproducibility and consistency of modeling efforts.</p>
 <p>We are constantly looking to expand the data sources to have a full representation of SLF’s presence and abundance in the US. If you wish to contribute to this effort please contact the package authors.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># attaching necessary packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ieco-lab/lydemapr" class="external-link">lydemapr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/walkerke/tigris" class="external-link">tigris</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-summary">Data Summary<a class="anchor" aria-label="anchor" href="#data-summary"></a>
 </h2>
 <p>To begin, let’s take a look at the data structure:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">lydemapr</span><span class="fu">::</span><span class="va"><a href="../reference/lyde.html">lyde</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 14</span></span></span>
 <span><span class="co">##   source  year bio_year latitude longitude state lyde_present lyde_established</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           </span></span>
@@ -121,6 +129,9 @@
 <span><span class="co">## <span style="color: #949494;">#   rounded_latitude_10k &lt;dbl&gt;</span></span></span></code></pre>
 <p>Each data point contains information on its source and specific dataset of origin (“survey”). The data is organized by year (specified as both calendar “year” and “bio_year”, running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, “lyde_present”), whether an established population was found there (“lyde_established”), and what the estimated population density of SLF was there (“lyde_density”). For additional information on the variables included, please consult the help file associated with the data by typing <code><a href="../reference/lyde.html">?lyde</a></code> in the RStudio console. A Metadata file can also be found in the compressed folder <code>lyde_data.zip</code> contained in <code>download_data/</code>.</p>
 <p>The package function <code><a href="../reference/lyde_summary.html">lyde_summary()</a></code> breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It’s important to notice that the data is arranged yearly according to the <strong>biological year</strong> of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year’s summer/fall.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># data by Year and State</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/lyde_summary.html">lyde_summary</a></span><span class="op">(</span>year_type <span class="op">=</span> <span class="st">"biological"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -418,13 +429,33 @@
 <p>Two functions allow the user to plot the data: <code><a href="../reference/map_spread.html">map_spread()</a></code> and <code>map_yearly</code>.</p>
 <p>The first function produces a snapshot of the SLF spread in the United States, with reference to the sampling effort associated with surveying the spread. Surveys finding an established population are plotted on the map as filled tiles, color coded by the year of first discovery. Surveys finding no established population are plotted as grey tiles.</p>
 <p>As the plotting of the data might take a long time to display within R, we encourage the user to assign the map and save it as a pdf instead, like we show below.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># assigning the map</span></span>
+<span><span class="va">map_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_spread.html">map_spread</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The map can be saved as a pdf file at high resolution.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># saving the map as a pdf</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_spread.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">map_1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.</span></span>
+<span><span class="va">map_1</span></span></code></pre></div>
 <div class="figure">
 <img src="introduction_files/figure-html/10k%20map%20displaying-1.png" alt="Output of the `map_spread()` function, plotted at the 10km resolution" width="650"><p class="caption">
 Output of the <code><a href="../reference/map_spread.html">map_spread()</a></code> function, plotted at the 10km resolution
 </p>
 </div>
 <p>The default function displays data aggregated at the 10km<sup>2</sup> (Figure 1). The function can be customized to show the data at higher spatial resolution (1k<sup>2</sup>), by setting the function option <code>resolution</code> to “1k”. This will take considerably longer, so saving the result as a pdf is preferable in this instance as well.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">map_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_spread.html">map_spread</a></span><span class="op">(</span>resolution <span class="op">=</span> <span class="st">"1k"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_spread_1k.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">map_2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.</span></span>
+<span><span class="va">map_2</span></span></code></pre></div>
 <div class="figure">
 <img src="introduction_files/figure-html/displaying%201k%20map-1.png" alt="Output of the `map_spread()` function now plotted at a finer 1km resolution" width="650"><p class="caption">
 Output of the <code><a href="../reference/map_spread.html">map_spread()</a></code> function now plotted at a finer 1km resolution
@@ -432,17 +463,43 @@ Output of the <code><a href="../reference/map_spread.html">map_spread()</a></cod
 </div>
 <p>The function displays data in a slightly different fashion at the 1km<sup>2</sup> resolution (Figure 2). At 10km<sup>2</sup> the data is plotted at filled tiles. This improves the visualization by representing the grid in which the data is organized more clearly. As tiles of size 1km are much smaller, we prefer to display survey points at this resolution as points on the map.</p>
 <p>If the user wishes to visualize the data for a smaller area of the United States, the function allows them to specify which area should be mapped, by setting the <code>zoom</code> variable to “custom” and specifying the boundaries of the mapped area through <code>xlim_coord</code> (longitude) and <code>ylim_coord</code> (latitude), as Laongitude and Latitude coordinates using the WG84 projection. Here’s an example of how this can be achieved.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># assigning object</span></span>
+<span><span class="va">map_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_spread.html">map_spread</a></span><span class="op">(</span>resolution <span class="op">=</span> <span class="st">"1k"</span>,</span>
+<span>           zoom <span class="op">=</span> <span class="st">"custom"</span>,</span>
+<span>           xlim_coord <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">78</span>, <span class="op">-</span><span class="fl">74</span><span class="op">)</span>,</span>
+<span>           ylim_coord <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">38</span>, <span class="fl">42</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># saving to pdf</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_spread_1k_zoomed.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">map_3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.</span></span>
+<span><span class="va">map_3</span></span></code></pre></div>
 <div class="figure">
 <img src="introduction_files/figure-html/displaying%20zoomed%20in%20map-1.png" alt="Zoomed area, focusing on the core of the invasion range" width="650"><p class="caption">
 Zoomed area, focusing on the core of the invasion range
 </p>
 </div>
 <p>The second function, <code><a href="../reference/map_yearly.html">map_yearly()</a></code> allows the user to visualize the progression of SLF establishment, with a focus on the estimated population density through time. Note that the data here is not cumulative, meaning only data from a given year is shown in any given panel of the figure.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># running year-specific map</span></span>
+<span><span class="co"># assigning object</span></span>
+<span><span class="va">map_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_yearly.html">map_yearly</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># saving to pdf</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_yearly.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">map_4</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually, be advised that it might take a considerable amount of time for the map to be displayed. It's advised to visualize the pdf file saved above.</span></span>
+<span><span class="co"># map_4</span></span></code></pre></div>
 </div>
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Temple University, <a href="mailto:sebastiano.debona@temple.edu" class="email">sebastiano.debona@temple.edu</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Temple University, <a href="mailto:sebastiano.debona@gmail.com" class="email">sebastiano.debona@gmail.com</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Temple University, <a href="mailto:mrhelmus@temple.edu" class="email">mrhelmus@temple.edu</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
