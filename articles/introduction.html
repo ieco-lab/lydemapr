@@ -75,7 +75,7 @@
 
       
 
-      </header><script src="Introduction_to_lydemapr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>
@@ -88,8 +88,8 @@
             
             <h4 data-toc-skip class="date">26 May 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ieco-lab/lydemapr/blob/HEAD/vignettes/Introduction_to_lydemapr.Rmd" class="external-link"><code>vignettes/Introduction_to_lydemapr.Rmd</code></a></small>
-      <div class="hidden name"><code>Introduction_to_lydemapr.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ieco-lab/lydemapr/blob/HEAD/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
+      <div class="hidden name"><code>introduction.Rmd</code></div>
 
     </div>
 
@@ -420,20 +420,20 @@
 <p>As the plotting of the data might take a long time to display within R, we encourage the user to assign the map and save it as a pdf instead, like we show below.</p>
 <p>The map can be saved as a pdf file at high resolution.</p>
 <div class="figure">
-<img src="Introduction_to_lydemapr_files/figure-html/10k%20map%20displaying-1.png" alt="Output of the `map_spread()` function, plotted at the 10km resolution" width="650"><p class="caption">
+<img src="introduction_files/figure-html/10k%20map%20displaying-1.png" alt="Output of the `map_spread()` function, plotted at the 10km resolution" width="650"><p class="caption">
 Output of the <code>map_spread()</code> function, plotted at the 10km resolution
 </p>
 </div>
 <p>The default function displays data aggregated at the 10km<sup>2</sup> (Figure 1). The function can be customized to show the data at higher spatial resolution (1k<sup>2</sup>), by setting the function option <code>resolution</code> to “1k”. This will take considerably longer, so saving the result as a pdf is preferable in this instance as well.</p>
 <div class="figure">
-<img src="Introduction_to_lydemapr_files/figure-html/displaying%201k%20map-1.png" alt="Output of the `map_spread()` function now plotted at a finer 1km resolution" width="650"><p class="caption">
+<img src="introduction_files/figure-html/displaying%201k%20map-1.png" alt="Output of the `map_spread()` function now plotted at a finer 1km resolution" width="650"><p class="caption">
 Output of the <code>map_spread()</code> function now plotted at a finer 1km resolution
 </p>
 </div>
 <p>The function displays data in a slightly different fashion at the 1km<sup>2</sup> resolution (Figure 2). At 10km<sup>2</sup> the data is plotted at filled tiles. This improves the visualization by representing the grid in which the data is organized more clearly. As tiles of size 1km are much smaller, we prefer to display survey points at this resolution as points on the map.</p>
 <p>If the user wishes to visualize the data for a smaller area of the United States, the function allows them to specify which area should be mapped, by setting the <code>zoom</code> variable to “custom” and specifying the boundaries of the mapped area through <code>xlim_coord</code> (longitude) and <code>ylim_coord</code> (latitude), as Laongitude and Latitude coordinates using the WG84 projection. Here’s an example of how this can be achieved.</p>
 <div class="figure">
-<img src="Introduction_to_lydemapr_files/figure-html/displaying%20zoomed%20in%20map-1.png" alt="Zoomed area, focusing on the core of the invasion range" width="650"><p class="caption">
+<img src="introduction_files/figure-html/displaying%20zoomed%20in%20map-1.png" alt="Zoomed area, focusing on the core of the invasion range" width="650"><p class="caption">
 Zoomed area, focusing on the core of the invasion range
 </p>
 </div>
