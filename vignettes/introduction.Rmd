@@ -1,20 +1,16 @@
 ---
 title: "`lydemapr`: an R package to map <i>Lycorma delicatula</i>"
-output:
-  pdf_document:
-    toc: TRUE
-    toc_depth: 3
-  html_document:
-    toc: TRUE
-    toc_depth: 3
-    toc_float: true
-    theme: united
+output: rmarkdown::html_vignette
 params:
   show_code: FALSE
 author: 
     - "Sebastiano De Bona^[Temple University, sebastiano.debona@temple.edu]"
     - "Matthew R. Helmus^[Temple University, mrhelmus@temple.edu]"
 date: "`r format(Sys.time(), '%d %B %Y')`"
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setting figure files as png, include = F}

@@ -10,3 +10,4 @@ docs
 /vignettes/*.png
 /download_data/lyde_data
 /sandbox
+inst/doc
