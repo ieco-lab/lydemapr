@@ -7,4 +7,6 @@
 Icon?
 docs
 /vignettes/*.pdf
+/vignettes/*.png
 /download_data/lyde_data
+/sandbox
