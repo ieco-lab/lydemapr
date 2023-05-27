@@ -18,6 +18,8 @@ There are three ways to obtain the package and the data associated with it.
 
 The data itself can be obtained separately by downloading the compressed folder `/download_data` directly form [this github page](https://github.com/ieco-lab/lydemap). Access the folder `/download_data`, then `lyde_data.zip`, then click download on the right side of the page. The folder contains a compressed folder with two version of the data in `.csv` format, alongside a Metadata file to understand and use the data.
 
+In addition, the data is stored as a version-controlled repository on Zenodo (doi:10.5281/zenodo.7976229)
+
 #### 2. Installing the package in R
 
 The package `lydemapr` can be installed by the user in an instance of R or RStudio by typing.
