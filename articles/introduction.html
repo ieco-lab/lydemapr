@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lydemapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@
 <span><span class="co">## <span style="color: #949494;"># ℹ 6 more variables: lyde_density &lt;fct&gt;, source_agency &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   collection_method &lt;chr&gt;, pointID &lt;chr&gt;, rounded_longitude_10k &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   rounded_latitude_10k &lt;dbl&gt;</span></span></span></code></pre>
-<p>Each data point contains information on its source and specific dataset of origin (“survey”). The data is organized by year (specified as both calendar “year” and “bio_year”, running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, “lyde_present”), whether an established population was found there (“lyde_established”), and what the estimated population density of SLF was there (“lyde_density”). For additional information on the variables included, please consult the help file associated with the data by typing <code><a href="../reference/lyde.html">?lyde</a></code> in the RStudio console. A Metadata file can also be found in the compressed folder <code>lyde_data.zip</code> contained in <code>download_data/</code>.</p>
+<p>Each data point contains information on its source and specific dataset of origin (“source_agency”). The data is organized by year (specified as both calendar “year” and “bio_year”, running from May 1st to April 30th), coordinates, and state. Additional columns define whether SLF was found during the survey in that location (even as an anecdotal individual record, “lyde_present”), whether an established population was found there (“lyde_established”), and what the estimated population density of SLF was there (“lyde_density”). For additional information on the variables included, please consult the help file associated with the data by typing <code><a href="../reference/lyde.html">?lyde</a></code> in the RStudio console. A Metadata file can also be found in the compressed folder <code>lyde_data.zip</code> contained in <code>download_data/</code>.</p>
 <p>The package function <code><a href="../reference/lyde_summary.html">lyde_summary()</a></code> breaks the data down into a quick summary, with data organized by different axes. We can take a look at the data split across year and States. It’s important to notice that the data is arranged yearly according to the <strong>biological year</strong> of SLF, and not calendar year. This allows for the appropriate inclusion of egg masses discovered during the winter months which were laid during the previous calendar year’s summer/fall.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># data by Year and State</span></span>
@@ -150,6 +150,7 @@
 <th align="right">2019</th>
 <th align="right">2020</th>
 <th align="right">2021</th>
+<th align="right">2022</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -161,9 +162,22 @@
 <td align="right">0</td>
 <td align="right">10</td>
 <td align="right">139</td>
-<td align="right">100</td>
+<td align="right">120</td>
+<td align="right">197</td>
 </tr>
 <tr class="even">
+<td align="left">CA</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
 <td align="left">CT</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -172,9 +186,10 @@
 <td align="right">0</td>
 <td align="right">3</td>
 <td align="right">2081</td>
-<td align="right">1269</td>
+<td align="right">1442</td>
+<td align="right">1436</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">DC</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -183,18 +198,32 @@
 <td align="right">8</td>
 <td align="right">21</td>
 <td align="right">10</td>
-<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">DE</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1075</td>
-<td align="right">2207</td>
-<td align="right">4545</td>
-<td align="right">5354</td>
+<td align="right">2208</td>
+<td align="right">4546</td>
+<td align="right">6962</td>
+<td align="right">5175</td>
+</tr>
+<tr class="even">
+<td align="left">FL</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">IN</td>
@@ -206,6 +235,7 @@
 <td align="right">101</td>
 <td align="right">102</td>
 <td align="right">352</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">KS</td>
@@ -217,6 +247,7 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">21</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">KY</td>
@@ -227,7 +258,8 @@
 <td align="right">0</td>
 <td align="right">3</td>
 <td align="right">2</td>
-<td align="right">18</td>
+<td align="right">20</td>
+<td align="right">12</td>
 </tr>
 <tr class="even">
 <td align="left">MA</td>
@@ -238,18 +270,20 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">893</td>
-<td align="right">1835</td>
+<td align="right">2859</td>
+<td align="right">2056</td>
 </tr>
 <tr class="odd">
 <td align="left">MD</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">0</td>
+<td align="right">1</td>
 <td align="right">39</td>
-<td align="right">2404</td>
+<td align="right">2398</td>
 <td align="right">17408</td>
-<td align="right">4600</td>
+<td align="right">4734</td>
+<td align="right">1470</td>
 </tr>
 <tr class="even">
 <td align="left">ME</td>
@@ -261,6 +295,7 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">20</td>
+<td align="right">85</td>
 </tr>
 <tr class="odd">
 <td align="left">MI</td>
@@ -272,6 +307,7 @@
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">133</td>
+<td align="right">307</td>
 </tr>
 <tr class="even">
 <td align="left">MO</td>
@@ -283,6 +319,7 @@
 <td align="right">15</td>
 <td align="right">18</td>
 <td align="right">0</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">NC</td>
@@ -293,9 +330,22 @@
 <td align="right">0</td>
 <td align="right">14067</td>
 <td align="right">5</td>
+<td align="right">110</td>
 <td align="right">86</td>
 </tr>
 <tr class="even">
+<td align="left">NH</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
 <td align="left">NJ</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -303,10 +353,11 @@
 <td align="right">0</td>
 <td align="right">2443</td>
 <td align="right">9528</td>
-<td align="right">13066</td>
-<td align="right">83132</td>
+<td align="right">13075</td>
+<td align="right">83704</td>
+<td align="right">39397</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">NM</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -316,19 +367,21 @@
 <td align="right">0</td>
 <td align="right">10</td>
 <td align="right">28</td>
+<td align="right">26</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">NY</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">18474</td>
-<td align="right">27046</td>
-<td align="right">18255</td>
-<td align="right">4033</td>
+<td align="right">27047</td>
+<td align="right">18228</td>
+<td align="right">9063</td>
+<td align="right">19180</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">OH</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -336,10 +389,11 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">731</td>
-<td align="right">406</td>
+<td align="right">681</td>
+<td align="right">575</td>
+<td align="right">304</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">OR</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -349,19 +403,21 @@
 <td align="right">0</td>
 <td align="right">92</td>
 <td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="left">PA</td>
-<td align="right">370</td>
-<td align="right">7677</td>
-<td align="right">9269</td>
-<td align="right">9229</td>
-<td align="right">77047</td>
-<td align="right">150109</td>
-<td align="right">90390</td>
-<td align="right">61802</td>
+<td align="right">73</td>
 </tr>
 <tr class="even">
+<td align="left">PA</td>
+<td align="right">372</td>
+<td align="right">7677</td>
+<td align="right">9269</td>
+<td align="right">9231</td>
+<td align="right">77055</td>
+<td align="right">150181</td>
+<td align="right">90476</td>
+<td align="right">69436</td>
+<td align="right">79699</td>
+</tr>
+<tr class="odd">
 <td align="left">RI</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -371,8 +427,9 @@
 <td align="right">0</td>
 <td align="right">45</td>
 <td align="right">18</td>
+<td align="right">285</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">SC</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -381,10 +438,12 @@
 <td align="right">0</td>
 <td align="right">2</td>
 <td align="right">7</td>
-<td align="right">33</td>
+<td align="right">49</td>
+<td align="right">70</td>
 </tr>
-<tr class="even">
-<td align="left">UT</td>
+<tr class="odd">
+<td align="left">TN</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -394,7 +453,31 @@
 <td align="right">1</td>
 <td align="right">0</td>
 </tr>
+<tr class="even">
+<td align="left">TX</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">75</td>
+</tr>
 <tr class="odd">
+<td align="left">UT</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
 <td align="left">VA</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -402,10 +485,11 @@
 <td align="right">2</td>
 <td align="right">1523</td>
 <td align="right">4353</td>
-<td align="right">4099</td>
-<td align="right">1209</td>
+<td align="right">4100</td>
+<td align="right">2574</td>
+<td align="right">2748</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">VT</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -415,8 +499,9 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">2</td>
+<td align="right">25</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">WV</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -424,8 +509,9 @@
 <td align="right">0</td>
 <td align="right">3</td>
 <td align="right">995</td>
-<td align="right">2367</td>
-<td align="right">1550</td>
+<td align="right">2368</td>
+<td align="right">2101</td>
+<td align="right">1450</td>
 </tr>
 </tbody>
 </table>
@@ -502,7 +588,7 @@ Zoomed area, focusing on the core of the invasion range
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># running year-specific map</span></span>
 <span><span class="co"># assigning object</span></span>
-<span><span class="va">map_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_yearly.html">map_yearly</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">map_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_yearly.html">map_yearly</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># saving to pdf</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_yearly.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
