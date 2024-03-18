@@ -1,6 +1,4 @@
-<img src="man/figures/logo.svg" align="right" height="139" />
-
-## Description
+<img src="man/figures/logo.svg" align="right" width="14%" />
 
 The Spotted Lanternfly (*Lycorma delicatula*, SLF) is an invasive pest species in the United States, first discovered in Berks County, PA, in 2014. Since its first discovery, several agencies (with the Pennsylvania Dept. of Agriculture, and the US Dept. of Agriculture in a leading role) have taken up the task to monitor and control SLF populations.
 
