@@ -86,21 +86,25 @@ if(any(rarefy,
     dplyr::group_by(latitude, longitude) %>%
     dplyr::summarise(
       bio_year = min(bio_year),
-      .groups = "keep")
+      .groups = "keep") %>%
+    as_tibble()
 
   data_surveyed <- data %>%
     dplyr::group_by(latitude, longitude) %>%
     dplyr::summarise(
       lyde_established = any(lyde_established),
       .groups = "keep") %>%
-    dplyr::filter(!lyde_established)
+    dplyr::filter(!lyde_established) %>%
+    as_tibble()
 
 } else {
 
   data_established <- data %>%
-    dplyr::filter(lyde_established)
+    dplyr::filter(lyde_established) %>%
+    as_tibble()
   data_surveyed <- data %>%
-    dplyr::filter(!lyde_established)
+    dplyr::filter(!lyde_established) %>%
+    as_tibble()
 
 }
 
@@ -139,7 +143,9 @@ if(resolution == "1k"){
                col = "grey", alpha = 0.3, shape = 4, size = .5) +
     geom_point(data = data_established %>%
                  arrange(desc(bio_year)) %>%
-                 mutate(bio_year = as.factor(bio_year)),
+                 mutate(bio_year = forcats::fct_rev(
+                   forcats::as_factor(bio_year)
+                 )),
                aes(x = longitude, y = latitude, col = bio_year),
                shape = 19, size =0.8) +
     geom_text(data = states, aes(X, Y, label = code), size = 4.5) +
@@ -162,7 +168,9 @@ if(resolution == "1k"){
                fill = "grey75", alpha = 1) +
     geom_tile(data = data_established %>%
                  arrange(desc(bio_year)) %>%
-                 mutate(bio_year = as.factor(bio_year)),
+                 mutate(bio_year = forcats::fct_rev(
+                   forcats::as_factor(bio_year)
+                   )),
                aes(x = longitude, y = latitude, fill = bio_year)) +
     geom_text(data = states, aes(X, Y, label = code), size = 4.5) +
     scale_fill_viridis_d(option = "plasma", direction = 1) +
