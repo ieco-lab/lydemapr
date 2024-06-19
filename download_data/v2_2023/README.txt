@@ -1,4 +1,4 @@
-README for the folder download_data/v1_2023
+README for the folder download_data/v2_2023
 
 The datasets contained here pertain to version 2 of the package lydemapr, published in early 2024 and containing data up to 2023.
 
