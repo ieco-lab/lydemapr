@@ -22,7 +22,7 @@ The data itself can be obtained separately by downloading any of the folders con
 
 From the GitHub page, access `/download_data`, then the desired folder within, finally the file `lyde_data.zip`. To download it, click the download button on the right side of the page. The compressed file `lyde_data.zip` contains a folder with two version of the data in `.csv` format, alongside a Metadata file to understand and use the data.
 
-In addition, the data is stored as a version-controlled repository on Zenodo (doi:10.5281/zenodo.7976229)
+In addition, the data is stored as a version-controlled repository on Zenodo ([10.5281/zenodo.7976228](https://zenodo.org/doi/10.5281/zenodo.7976228), version agnostic link)
 
 #### 2. Installing the package in R
 
