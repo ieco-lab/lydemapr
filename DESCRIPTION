@@ -1,7 +1,7 @@
 Package: lydemapr
 Type: Package
 Title: Mapping the Spread of Lycorma delicatula
-Version: 3.0.0
+Version: 3.0.1
 Authors@R: c(
     person("Seba", "De Bona", email = "sebastiano.debona@temple.edu", role = c("cre", "aut")),
     person("Matt", "Helmus", email = "mrhelmus@temple.edu", role = "aut"))
