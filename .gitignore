@@ -10,6 +10,7 @@ docs
 /download_data/v1_2021/lyde_data_v1
 /download_data/v2_2023/lyde_data_v2
 /download_data/v3_2024/lyde_data_v3
+/download_data/v3.0.1_2024/lyde_data_v3.0.1
 /sandbox
 inst/doc
 vignettes/*.log
