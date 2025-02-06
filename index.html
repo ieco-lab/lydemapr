@@ -6,12 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mapping the Spread of Lycorma delicatula • lydemapr</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -26,7 +20,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -40,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">lydemapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.0.1</span>
       </span>
     </div>
 
@@ -49,7 +43,7 @@
 <li>
   <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -63,13 +57,13 @@
 <li>
   <a>
     <span class="fa fa-gitlab fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
   <a href="https://ieco-lab.github.io/lydemapr/" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -80,7 +74,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
@@ -89,7 +83,7 @@
 <p>The Spotted Lanternfly (<em>Lycorma delicatula</em>, SLF) is an invasive pest species in the United States, first discovered in Berks County, PA, in 2014. Since its first discovery, several agencies (with the Pennsylvania Dept. of Agriculture, and the US Dept. of Agriculture in a leading role) have taken up the task to monitor and control SLF populations.</p>
 <p>The package <code>lydemapr</code> combines survey datasets produced by different agencies in the United States (at the local, state, and federal level) into a single aggregated and anonymized dataset. This includes information on the approximate location where each survey was conducted, the provenance of the data point, as well as biologically relevant results of the surveys (presence/absence of the Spotted Lanternfly, presence of an established population, and estimated population density of this pest).</p>
 <p>More information on how the package is structured and maintained can be found in the associated article De Bona et al. 2023 published in NeoBiota (see full citation below).</p>
-<p><strong>IMPORTANT</strong>: the current version of the package (v3) contains data beyond what described in the article, extending until early 2024.</p>
+<p><strong>IMPORTANT</strong>: the current version of the package (v3.0.1) contains data beyond what described in the article, extending until early 2024, with minor fix to Indiana naming convention.</p>
 <div class="section level4">
 <h4 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h4>
@@ -100,14 +94,14 @@
 </h3>
 <p>There are three ways to obtain the package and the data associated with it.</p>
 <div class="section level4">
-<h4 id="1-downloading-the-data-only">1. Downloading the data only<a class="anchor" aria-label="anchor" href="#1-downloading-the-data-only"></a>
+<h4 id="id_1-downloading-the-data-only">1. Downloading the data only<a class="anchor" aria-label="anchor" href="#id_1-downloading-the-data-only"></a>
 </h4>
 <p>The data itself can be obtained separately by downloading any of the folders contained in <code>/download_data</code> directly form <a href="https://github.com/ieco-lab/lydemap" class="external-link">this github page</a>. Each folder within <code>/download_data</code> contains data from a separate version of the package, as indicated by their name. In addition, the suffix of the name indicates the last year of data included within the dataset.</p>
 <p>From the GitHub page, access <code>/download_data</code>, then the desired folder within, finally the file <code>lyde_data.zip</code>. To download it, click the download button on the right side of the page. The compressed file <code>lyde_data.zip</code> contains a folder with two version of the data in <code>.csv</code> format, alongside a Metadata file to understand and use the data.</p>
 <p>In addition, the data is stored as a version-controlled repository on Zenodo (<a href="https://zenodo.org/doi/10.5281/zenodo.7976228" class="external-link">10.5281/zenodo.7976228</a>, version agnostic link)</p>
 </div>
 <div class="section level4">
-<h4 id="2-installing-the-package-in-r">2. Installing the package in R<a class="anchor" aria-label="anchor" href="#2-installing-the-package-in-r"></a>
+<h4 id="id_2-installing-the-package-in-r">2. Installing the package in R<a class="anchor" aria-label="anchor" href="#id_2-installing-the-package-in-r"></a>
 </h4>
 <p>The package <code>lydemapr</code> can be installed by the user in an instance of R or RStudio by typing.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
@@ -117,7 +111,7 @@
 <p>At the user’s discretion, the argument <code>build_vignettes</code> can be set to <code>FALSE</code> to prevent the vignettes from being rendered. A rendered pdf of the vignettes is included in the <code>download_data/</code> folder.</p>
 </div>
 <div class="section level4">
-<h4 id="3-cloning-the-package-locally">3. Cloning the package locally<a class="anchor" aria-label="anchor" href="#3-cloning-the-package-locally"></a>
+<h4 id="id_3-cloning-the-package-locally">3. Cloning the package locally<a class="anchor" aria-label="anchor" href="#id_3-cloning-the-package-locally"></a>
 </h4>
 <p>If the user wishes to access the full content of the package, they can clone <code>lydemapr</code> locally. To do so, open your Terminal or git shell, and <code>cd</code> to the appropriate folder where you want the project to be stored. Then, type:</p>
 <pre><code>git clone https://github.com/ieco-lab/lydemapr.git</code></pre>
@@ -126,7 +120,7 @@
 <p>This will generate a prompt asking whether the package dependencies should be updated. As mentioned above, the argument <code>build_vignettes</code> can be omitted (set to <code>FALSE</code> by default) to prevent the rendering of the package vignette. A rendered .pdf copy of the vignette is stored in the folder <code>download_data/</code></p>
 </div>
 <div class="section level4">
-<h4 id="4-accessing-package-documentation">4. Accessing package documentation<a class="anchor" aria-label="anchor" href="#4-accessing-package-documentation"></a>
+<h4 id="id_4-accessing-package-documentation">4. Accessing package documentation<a class="anchor" aria-label="anchor" href="#id_4-accessing-package-documentation"></a>
 </h4>
 <p>The functions included in the package can be listed using</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ieco-lab/lydemapr" class="external-link">lydemapr</a></span><span class="op">)</span></span>
@@ -187,16 +181,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
