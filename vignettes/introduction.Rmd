@@ -1,6 +1,7 @@
 ---
 title: "`lydemapr`: an R package to map <i>Lycorma delicatula</i>"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette
 params:
   show_code: TRUE
 author: 
@@ -144,13 +145,13 @@ The second function, `map_yearly()` allows the user to visualize the progression
 ```{r assigning density map, message = FALSE, results = "hide"}
 # running year-specific map
 # assigning object
-map_4 <- map_yearly(ncol = 2)
+map_4 <- map_yearly(ncol = 3)
 ```
 
 
 ```{r saving map, message = FALSE, results = "hide", eval = FALSE}
 # saving to pdf
-pdf("Map_yearly.pdf", width = 7.5, height = 8)
+pdf("Map_yearly.pdf", width = 8, height = 9)
 map_4
 dev.off()
 ```
