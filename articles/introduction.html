@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lydemapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.0.2</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ Bona<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 Helmus<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
 </h4>
             
-            <h4 data-toc-skip class="date">06 February 2025</h4>
+            <h4 data-toc-skip class="date">20 May 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ieco-lab/lydemapr/blob/main/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -168,6 +168,20 @@ summer/fall.</p>
 <code class="sourceCode R"><span><span class="co"># data by Year and State</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/lyde_summary.html">lyde_summary</a></span><span class="op">(</span>year_type <span class="op">=</span> <span class="st">"biological"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
+<colgroup>
+<col width="4%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="9%">
+<col width="10%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+</colgroup>
 <thead><tr class="header">
 <th align="left"></th>
 <th align="right">2014</th>
@@ -180,6 +194,7 @@ summer/fall.</p>
 <th align="right">2021</th>
 <th align="right">2022</th>
 <th align="right">2023</th>
+<th align="right">2024</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -192,8 +207,9 @@ summer/fall.</p>
 <td align="right">10</td>
 <td align="right">139</td>
 <td align="right">120</td>
-<td align="right">197</td>
-<td align="right">326</td>
+<td align="right">205</td>
+<td align="right">672</td>
+<td align="right">520</td>
 </tr>
 <tr class="even">
 <td align="left">CA</td>
@@ -207,6 +223,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">1</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">CT</td>
@@ -218,8 +235,9 @@ summer/fall.</p>
 <td align="right">4</td>
 <td align="right">2094</td>
 <td align="right">1442</td>
-<td align="right">1438</td>
-<td align="right">821</td>
+<td align="right">1660</td>
+<td align="right">1894</td>
+<td align="right">351</td>
 </tr>
 <tr class="even">
 <td align="left">DC</td>
@@ -232,20 +250,22 @@ summer/fall.</p>
 <td align="right">10</td>
 <td align="right">5</td>
 <td align="right">0</td>
-<td align="right">39</td>
+<td align="right">47</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">DE</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">1</td>
+<td align="right">0</td>
 <td align="right">1075</td>
 <td align="right">2208</td>
 <td align="right">4546</td>
 <td align="right">6962</td>
-<td align="right">5175</td>
-<td align="right">2632</td>
+<td align="right">6043</td>
+<td align="right">6427</td>
+<td align="right">3083</td>
 </tr>
 <tr class="even">
 <td align="left">FL</td>
@@ -257,6 +277,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 </tr>
@@ -272,6 +293,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">16</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">IN</td>
@@ -282,9 +304,10 @@ summer/fall.</p>
 <td align="right">79</td>
 <td align="right">101</td>
 <td align="right">103</td>
-<td align="right">352</td>
-<td align="right">131</td>
-<td align="right">207</td>
+<td align="right">508</td>
+<td align="right">195</td>
+<td align="right">282</td>
+<td align="right">5</td>
 </tr>
 <tr class="odd">
 <td align="left">KS</td>
@@ -296,6 +319,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">21</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 </tr>
@@ -310,7 +334,8 @@ summer/fall.</p>
 <td align="right">2</td>
 <td align="right">20</td>
 <td align="right">165</td>
-<td align="right">161</td>
+<td align="right">168</td>
+<td align="right">16</td>
 </tr>
 <tr class="odd">
 <td align="left">MA</td>
@@ -322,21 +347,23 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">893</td>
 <td align="right">2859</td>
-<td align="right">2056</td>
-<td align="right">1743</td>
+<td align="right">2097</td>
+<td align="right">3949</td>
+<td align="right">2995</td>
 </tr>
 <tr class="even">
 <td align="left">MD</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
-<td align="right">1</td>
-<td align="right">40</td>
-<td align="right">2398</td>
+<td align="right">39</td>
+<td align="right">2399</td>
 <td align="right">17408</td>
 <td align="right">4734</td>
-<td align="right">1470</td>
-<td align="right">1882</td>
+<td align="right">1656</td>
+<td align="right">3231</td>
+<td align="right">1029</td>
 </tr>
 <tr class="odd">
 <td align="left">ME</td>
@@ -349,7 +376,8 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">20</td>
 <td align="right">85</td>
-<td align="right">19</td>
+<td align="right">37</td>
+<td align="right">28</td>
 </tr>
 <tr class="even">
 <td align="left">MI</td>
@@ -362,7 +390,8 @@ summer/fall.</p>
 <td align="right">1</td>
 <td align="right">133</td>
 <td align="right">307</td>
-<td align="right">339</td>
+<td align="right">699</td>
+<td align="right">314</td>
 </tr>
 <tr class="odd">
 <td align="left">MO</td>
@@ -375,7 +404,8 @@ summer/fall.</p>
 <td align="right">18</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">37</td>
+<td align="right">84</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">NC</td>
@@ -387,8 +417,9 @@ summer/fall.</p>
 <td align="right">14067</td>
 <td align="right">5</td>
 <td align="right">110</td>
-<td align="right">4819</td>
-<td align="right">886</td>
+<td align="right">4858</td>
+<td align="right">2024</td>
+<td align="right">453</td>
 </tr>
 <tr class="odd">
 <td align="left">NH</td>
@@ -401,20 +432,22 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">60</td>
-<td align="right">11</td>
+<td align="right">22</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left">NJ</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">1</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">2443</td>
-<td align="right">9528</td>
+<td align="right">9529</td>
 <td align="right">13075</td>
 <td align="right">83705</td>
-<td align="right">39397</td>
-<td align="right">1509</td>
+<td align="right">39706</td>
+<td align="right">2411</td>
+<td align="right">488</td>
 </tr>
 <tr class="odd">
 <td align="left">NM</td>
@@ -427,7 +460,8 @@ summer/fall.</p>
 <td align="right">10</td>
 <td align="right">28</td>
 <td align="right">26</td>
-<td align="right">7</td>
+<td align="right">21</td>
+<td align="right">17</td>
 </tr>
 <tr class="even">
 <td align="left">NY</td>
@@ -436,11 +470,12 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">18474</td>
-<td align="right">27047</td>
+<td align="right">27046</td>
 <td align="right">18228</td>
-<td align="right">13455</td>
-<td align="right">19815</td>
-<td align="right">8788</td>
+<td align="right">12826</td>
+<td align="right">22526</td>
+<td align="right">19495</td>
+<td align="right">3557</td>
 </tr>
 <tr class="odd">
 <td align="left">OH</td>
@@ -452,8 +487,9 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">681</td>
 <td align="right">575</td>
-<td align="right">304</td>
-<td align="right">303</td>
+<td align="right">1227</td>
+<td align="right">1464</td>
+<td align="right">165</td>
 </tr>
 <tr class="even">
 <td align="left">OR</td>
@@ -466,20 +502,22 @@ summer/fall.</p>
 <td align="right">92</td>
 <td align="right">15</td>
 <td align="right">73</td>
-<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">337</td>
 </tr>
 <tr class="odd">
 <td align="left">PA</td>
 <td align="right">372</td>
-<td align="right">7678</td>
-<td align="right">9270</td>
-<td align="right">9239</td>
-<td align="right">77062</td>
-<td align="right">150211</td>
-<td align="right">90478</td>
-<td align="right">69439</td>
-<td align="right">79699</td>
-<td align="right">66882</td>
+<td align="right">7677</td>
+<td align="right">9269</td>
+<td align="right">9231</td>
+<td align="right">77055</td>
+<td align="right">150180</td>
+<td align="right">90476</td>
+<td align="right">69436</td>
+<td align="right">82517</td>
+<td align="right">98580</td>
+<td align="right">30620</td>
 </tr>
 <tr class="even">
 <td align="left">RI</td>
@@ -492,7 +530,8 @@ summer/fall.</p>
 <td align="right">45</td>
 <td align="right">18</td>
 <td align="right">285</td>
-<td align="right">264</td>
+<td align="right">777</td>
+<td align="right">1453</td>
 </tr>
 <tr class="odd">
 <td align="left">SC</td>
@@ -504,8 +543,9 @@ summer/fall.</p>
 <td align="right">2</td>
 <td align="right">7</td>
 <td align="right">49</td>
-<td align="right">70</td>
-<td align="right">39</td>
+<td align="right">78</td>
+<td align="right">80</td>
+<td align="right">38</td>
 </tr>
 <tr class="even">
 <td align="left">TN</td>
@@ -518,7 +558,8 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">0</td>
-<td align="right">582</td>
+<td align="right">1166</td>
+<td align="right">1138</td>
 </tr>
 <tr class="odd">
 <td align="left">TX</td>
@@ -530,8 +571,9 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td align="right">75</td>
-<td align="right">218</td>
+<td align="right">150</td>
+<td align="right">472</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">UT</td>
@@ -542,6 +584,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -556,8 +599,9 @@ summer/fall.</p>
 <td align="right">4353</td>
 <td align="right">4100</td>
 <td align="right">2574</td>
-<td align="right">2748</td>
-<td align="right">2833</td>
+<td align="right">3977</td>
+<td align="right">6235</td>
+<td align="right">1150</td>
 </tr>
 <tr class="even">
 <td align="left">VT</td>
@@ -571,6 +615,7 @@ summer/fall.</p>
 <td align="right">2</td>
 <td align="right">25</td>
 <td align="right">1</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
 <td align="left">WI</td>
@@ -584,6 +629,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">WV</td>
@@ -595,8 +641,9 @@ summer/fall.</p>
 <td align="right">995</td>
 <td align="right">2368</td>
 <td align="right">2101</td>
-<td align="right">1450</td>
-<td align="right">777</td>
+<td align="right">1905</td>
+<td align="right">1621</td>
+<td align="right">702</td>
 </tr>
 </tbody>
 </table>
@@ -702,10 +749,10 @@ given panel of the figure.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># running year-specific map</span></span>
 <span><span class="co"># assigning object</span></span>
-<span><span class="va">map_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_yearly.html">map_yearly</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">map_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_yearly.html">map_yearly</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># saving to pdf</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_yearly.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_yearly.pdf"</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
 <span><span class="va">map_4</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -739,7 +786,7 @@ given panel of the figure.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
       </footer>
