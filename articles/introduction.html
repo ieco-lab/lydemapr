@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lydemapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.0.3</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ Bona<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 Helmus<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
 </h4>
             
-            <h4 data-toc-skip class="date">20 May 2025</h4>
+            <h4 data-toc-skip class="date">23 May 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ieco-lab/lydemapr/blob/main/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -129,8 +129,12 @@ contribute to this effort please contact the package authors.</p>
 <div class="section level2">
 <h2 id="data-summary">Data Summary<a class="anchor" aria-label="anchor" href="#data-summary"></a>
 </h2>
-<p>To begin, let’s take a look at the data structure:</p>
+<p>First, let’s see how many observations have been gathered here:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">lydemapr</span><span class="fu">::</span><span class="va"><a href="../reference/lyde.html">lyde</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1065350</span></span></code></pre>
+<p>Next, let’s take a look at the data structure:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">lydemapr</span><span class="fu">::</span><span class="va"><a href="../reference/lyde.html">lyde</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 14</span></span></span>
 <span><span class="co">##   source  year bio_year latitude longitude state lyde_present lyde_established</span></span>
@@ -164,7 +168,7 @@ notice that the data is arranged yearly according to the
 allows for the appropriate inclusion of egg masses discovered during the
 winter months which were laid during the previous calendar year’s
 summer/fall.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># data by Year and State</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/lyde_summary.html">lyde_summary</a></span><span class="op">(</span>year_type <span class="op">=</span> <span class="st">"biological"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -236,8 +240,8 @@ summer/fall.</p>
 <td align="right">2094</td>
 <td align="right">1442</td>
 <td align="right">1660</td>
-<td align="right">1894</td>
-<td align="right">351</td>
+<td align="right">1910</td>
+<td align="right">812</td>
 </tr>
 <tr class="even">
 <td align="left">DC</td>
@@ -250,8 +254,8 @@ summer/fall.</p>
 <td align="right">10</td>
 <td align="right">5</td>
 <td align="right">0</td>
-<td align="right">47</td>
-<td align="right">0</td>
+<td align="right">53</td>
+<td align="right">248</td>
 </tr>
 <tr class="odd">
 <td align="left">DE</td>
@@ -261,11 +265,11 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">1075</td>
 <td align="right">2208</td>
-<td align="right">4546</td>
+<td align="right">4547</td>
 <td align="right">6962</td>
-<td align="right">6043</td>
-<td align="right">6427</td>
-<td align="right">3083</td>
+<td align="right">6044</td>
+<td align="right">6433</td>
+<td align="right">3167</td>
 </tr>
 <tr class="even">
 <td align="left">FL</td>
@@ -293,7 +297,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">16</td>
-<td align="right">0</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">IN</td>
@@ -307,7 +311,7 @@ summer/fall.</p>
 <td align="right">508</td>
 <td align="right">195</td>
 <td align="right">282</td>
-<td align="right">5</td>
+<td align="right">21</td>
 </tr>
 <tr class="odd">
 <td align="left">KS</td>
@@ -335,7 +339,7 @@ summer/fall.</p>
 <td align="right">20</td>
 <td align="right">165</td>
 <td align="right">168</td>
-<td align="right">16</td>
+<td align="right">21</td>
 </tr>
 <tr class="odd">
 <td align="left">MA</td>
@@ -348,8 +352,8 @@ summer/fall.</p>
 <td align="right">893</td>
 <td align="right">2859</td>
 <td align="right">2097</td>
-<td align="right">3949</td>
-<td align="right">2995</td>
+<td align="right">3951</td>
+<td align="right">3043</td>
 </tr>
 <tr class="even">
 <td align="left">MD</td>
@@ -361,9 +365,9 @@ summer/fall.</p>
 <td align="right">2399</td>
 <td align="right">17408</td>
 <td align="right">4734</td>
-<td align="right">1656</td>
-<td align="right">3231</td>
-<td align="right">1029</td>
+<td align="right">1663</td>
+<td align="right">3303</td>
+<td align="right">3649</td>
 </tr>
 <tr class="odd">
 <td align="left">ME</td>
@@ -391,7 +395,7 @@ summer/fall.</p>
 <td align="right">133</td>
 <td align="right">307</td>
 <td align="right">699</td>
-<td align="right">314</td>
+<td align="right">316</td>
 </tr>
 <tr class="odd">
 <td align="left">MO</td>
@@ -419,7 +423,7 @@ summer/fall.</p>
 <td align="right">110</td>
 <td align="right">4858</td>
 <td align="right">2024</td>
-<td align="right">453</td>
+<td align="right">483</td>
 </tr>
 <tr class="odd">
 <td align="left">NH</td>
@@ -433,7 +437,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">60</td>
 <td align="right">22</td>
-<td align="right">3</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
 <td align="left">NJ</td>
@@ -444,10 +448,10 @@ summer/fall.</p>
 <td align="right">2443</td>
 <td align="right">9529</td>
 <td align="right">13075</td>
-<td align="right">83705</td>
-<td align="right">39706</td>
-<td align="right">2411</td>
-<td align="right">488</td>
+<td align="right">83715</td>
+<td align="right">39722</td>
+<td align="right">2484</td>
+<td align="right">1386</td>
 </tr>
 <tr class="odd">
 <td align="left">NM</td>
@@ -472,10 +476,10 @@ summer/fall.</p>
 <td align="right">18474</td>
 <td align="right">27046</td>
 <td align="right">18228</td>
-<td align="right">12826</td>
-<td align="right">22526</td>
-<td align="right">19495</td>
-<td align="right">3557</td>
+<td align="right">12829</td>
+<td align="right">22545</td>
+<td align="right">19720</td>
+<td align="right">6889</td>
 </tr>
 <tr class="odd">
 <td align="left">OH</td>
@@ -488,8 +492,8 @@ summer/fall.</p>
 <td align="right">681</td>
 <td align="right">575</td>
 <td align="right">1227</td>
-<td align="right">1464</td>
-<td align="right">165</td>
+<td align="right">1479</td>
+<td align="right">1162</td>
 </tr>
 <tr class="even">
 <td align="left">OR</td>
@@ -503,21 +507,21 @@ summer/fall.</p>
 <td align="right">15</td>
 <td align="right">73</td>
 <td align="right">3</td>
-<td align="right">337</td>
+<td align="right">338</td>
 </tr>
 <tr class="odd">
 <td align="left">PA</td>
 <td align="right">372</td>
-<td align="right">7677</td>
+<td align="right">7678</td>
 <td align="right">9269</td>
-<td align="right">9231</td>
-<td align="right">77055</td>
-<td align="right">150180</td>
-<td align="right">90476</td>
-<td align="right">69436</td>
-<td align="right">82517</td>
-<td align="right">98580</td>
-<td align="right">30620</td>
+<td align="right">9232</td>
+<td align="right">77057</td>
+<td align="right">150186</td>
+<td align="right">90481</td>
+<td align="right">69449</td>
+<td align="right">82539</td>
+<td align="right">98727</td>
+<td align="right">32815</td>
 </tr>
 <tr class="even">
 <td align="left">RI</td>
@@ -531,7 +535,7 @@ summer/fall.</p>
 <td align="right">18</td>
 <td align="right">285</td>
 <td align="right">777</td>
-<td align="right">1453</td>
+<td align="right">1595</td>
 </tr>
 <tr class="odd">
 <td align="left">SC</td>
@@ -558,8 +562,8 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">0</td>
-<td align="right">1166</td>
-<td align="right">1138</td>
+<td align="right">1167</td>
+<td align="right">1143</td>
 </tr>
 <tr class="odd">
 <td align="left">TX</td>
@@ -597,11 +601,11 @@ summer/fall.</p>
 <td align="right">2</td>
 <td align="right">1523</td>
 <td align="right">4353</td>
-<td align="right">4100</td>
-<td align="right">2574</td>
-<td align="right">3977</td>
-<td align="right">6235</td>
-<td align="right">1150</td>
+<td align="right">4102</td>
+<td align="right">2576</td>
+<td align="right">3984</td>
+<td align="right">6272</td>
+<td align="right">3433</td>
 </tr>
 <tr class="even">
 <td align="left">VT</td>
@@ -629,7 +633,7 @@ summer/fall.</p>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">0</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">WV</td>
@@ -642,8 +646,22 @@ summer/fall.</p>
 <td align="right">2368</td>
 <td align="right">2101</td>
 <td align="right">1905</td>
-<td align="right">1621</td>
-<td align="right">702</td>
+<td align="right">1628</td>
+<td align="right">944</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">86</td>
 </tr>
 </tbody>
 </table>
@@ -662,16 +680,16 @@ tiles.</p>
 <p>As the plotting of the data might take a long time to display within
 R, we encourage the user to assign the map and save it as a pdf instead,
 like we show below.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># assigning the map</span></span>
 <span><span class="va">map_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_spread.html">map_spread</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The map can be saved as a pdf file at high resolution.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># saving the map as a pdf</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_spread.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">map_1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually,</span></span>
 <span><span class="co"># be advised that it might take a considerable amount of time </span></span>
 <span><span class="co"># for the map to be displayed. </span></span>
@@ -688,13 +706,13 @@ resolution
 spatial resolution (1k<sup>2</sup>), by setting the function option
 <code>resolution</code> to “1k”. This will take considerably longer, so
 saving the result as a pdf is preferable in this instance as well.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">map_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_spread.html">map_spread</a></span><span class="op">(</span>resolution <span class="op">=</span> <span class="st">"1k"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_spread_1k.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">map_2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually,</span></span>
 <span><span class="co"># be advised that it might take a considerable amount of time </span></span>
 <span><span class="co"># for the map to be displayed. </span></span>
@@ -719,18 +737,18 @@ specifying the boundaries of the mapped area through
 <code>xlim_coord</code> (longitude) and <code>ylim_coord</code>
 (latitude), as Laongitude and Latitude coordinates using the WG84
 projection. Here’s an example of how this can be achieved.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># assigning object</span></span>
 <span><span class="va">map_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_spread.html">map_spread</a></span><span class="op">(</span>resolution <span class="op">=</span> <span class="st">"1k"</span>,</span>
 <span>           zoom <span class="op">=</span> <span class="st">"custom"</span>,</span>
 <span>           xlim_coord <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">78</span>, <span class="op">-</span><span class="fl">74</span><span class="op">)</span>,</span>
 <span>           ylim_coord <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">38</span>, <span class="fl">42</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># saving to pdf</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_spread_1k_zoomed.pdf"</span>, width <span class="op">=</span> <span class="fl">7.5</span>, height <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">map_3</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually,</span></span>
 <span><span class="co"># be advised that it might take a considerable amount of time </span></span>
 <span><span class="co"># for the map to be displayed. </span></span>
@@ -746,16 +764,16 @@ visualize the progression of SLF establishment, with a focus on the
 estimated population density through time. Note that the data here is
 not cumulative, meaning only data from a given year is shown in any
 given panel of the figure.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># running year-specific map</span></span>
 <span><span class="co"># assigning object</span></span>
 <span><span class="va">map_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/map_yearly.html">map_yearly</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># saving to pdf</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"Map_yearly.pdf"</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
 <span><span class="va">map_4</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If executing this line while running the vignette manually,</span></span>
 <span><span class="co"># be advised that it might take a considerable amount of time </span></span>
 <span><span class="co"># for the map to be displayed. </span></span>
