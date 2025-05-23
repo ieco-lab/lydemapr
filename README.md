@@ -6,7 +6,7 @@ The package `lydemapr` combines survey datasets produced by different agencies i
 
 More information on how the package is structured and maintained can be found in the associated article De Bona et al. 2023 published in NeoBiota (see full citation below).
 
-**IMPORTANT**: the current version of the package (v3.0.2) contains data beyond what described in the article, extending until early 2024, with additional data from the USDA running through all of 2024 and with a minor fix to Indiana naming convention.
+**IMPORTANT**: the current version of the package (v3.0.3) contains data beyond what described in the article, extending until early 2024, with additional data from the USDA running through all of 2024 and with a minor fix to Indiana naming convention. An updated download of iNaturalsit data is also included (from 23 May 2025)
 
 #### Citation
 De Bona, S., L. Barringer, P. Kurtz, J. Losiewicz, G.R. Parra, & M.R. Helmus. lydemapr: an R package to track the spread of the invasive spotted lanternfly (*Lycorma delicatula*, White 1845) (Hemiptera, Fulgoridae) in the United States. NeoBiota 86: 151-168. [https://doi.org/10.3897/neobiota.86.101471](https://doi.org/10.3897/neobiota.86.101471)

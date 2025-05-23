@@ -42,7 +42,12 @@ library(tigris)
 
 ## Data Summary
 
-To begin, let's take a look at the data structure:
+First, let's see how many observations have been gathered here:
+```{r data count}
+nrow(lydemapr::lyde)
+```
+
+Next, let's take a look at the data structure:
 
 ```{r data glance}
 head(lydemapr::lyde)
