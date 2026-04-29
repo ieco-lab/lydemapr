@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.DS_store
 /docs
 Icon?
 docs
@@ -13,6 +14,7 @@ docs
 /download_data/v3.0.1_2024/lyde_data_v3.0.1
 /download_data/v3.0.2_2024/lyde_data_v3.0.2
 /download_data/v3.0.3_2024/lyde_data_v3.0.3
+/download_data/v4_2025/lyde_data_v4
 /sandbox
 inst/doc
 vignettes/*.log
