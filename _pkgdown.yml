@@ -21,6 +21,8 @@ navbar:
       href: reference/index.html
     - text: "Introduction to lydemapr"
       href: articles/introduction.html
+    - text: "hello world"
+      href: articles/helloworld.html
 
 
   right:
