@@ -4,7 +4,7 @@
 \alias{map_yearly}
 \title{Display spread of SLF and survey effort through time}
 \usage{
-map_yearly(year_type = "biological", color_palette = "Reds", ncols = 2)
+map_yearly(year_type = "biological", color_palette = "Reds", ncols = 4)
 }
 \arguments{
 \item{year_type}{String defining whether to use the biological year definition ("biological", May 1st - April 30th, default) or the calendar year when faceting the figure ("calendar").}

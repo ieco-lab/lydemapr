@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @param path A character string that is the path to the csv file containing the downloaded iNaturalist data.
+#' @param established_states Filters out inat observations in states that do't have confirmed establishements yet.
 #' @param round (logical) If TRUE, the latitude and longitude columns will have been rounded to the 1k grid. If FALSE, the coordinates will be raw, directly from iNaturalist.
 #'
 #' @return A cleaned tibble
@@ -25,7 +26,7 @@
 #' df <- append_inat("observations-686514.csv", round = TRUE)
 #' }
 
-append_inat <- function(path, round = TRUE) {
+append_inat <- function(path, established_states = TRUE, round = TRUE) {
 
   suppressMessages(require(tidyverse))
 
@@ -74,7 +75,7 @@ append_inat <- function(path, round = TRUE) {
                             dplyr::filter(!coordinates_obscured, !is.na(latitude), !is.na(longitude)) %>%
                             dplyr::select(-coordinates_obscured)})
 
-  # add date information (year ad bio_year)
+  # add date information (year and bio_year)
   inat_slf <- safe_step(inat_slf,
                         c("observed_on", "time_observed_at", "created_at", "updated_at"),
                         function(d) {
@@ -113,8 +114,8 @@ append_inat <- function(path, round = TRUE) {
 
   # sub-setting multipolygon
   polys <- states %>%
-    dplyr::select(State = STUSPS) %>%
-    dplyr::filter(State %in% selected_states)
+    dplyr::select(state = STUSPS) %>%
+    dplyr::filter(state %in% selected_states)
 
 
   # storing inat_slf's colnames for later and data length
@@ -132,7 +133,7 @@ append_inat <- function(path, round = TRUE) {
     sf::st_as_sf(coords = coords,
                  crs = sf::st_crs(polys)) %>%
     # intersecting polygons with coordinate points
-    sf::st_join(polys, join = (sf::st_intersects)) %>%
+    suppressWarnings(sf::st_join(polys, join = (sf::st_intersects))) %>%
     as_tibble() %>%
     # simplifying to drop geometry
     dplyr::select(-geometry) %>%
@@ -143,11 +144,18 @@ append_inat <- function(path, round = TRUE) {
 
   # use the iNat state data to fill in gaps
   inat_slf <- safe_step(inat_slf,
-                        c("State", "iNatState"),
+                        c("state", "iNatState"),
                         function(d) {
                           d %>%
-                            dplyr::mutate(state = dplyr::coalesce(State, iNatState))})
+                            dplyr::mutate(state = dplyr::coalesce(state, iNatState))})
   ###########################
+
+  # filter out data in states without slf establishments
+  if (established_states == TRUE) {
+
+    est <- lyde %>% dplyr::filter(lyde_established == TRUE)
+    est_states <- unique(est$state)
+    inat_slf <- inat_slf %>% dplyr::filter(state %in% est_states) }
 
   # add present, established, and density columns
   inat_slf$lyde_present <- TRUE

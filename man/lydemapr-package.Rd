@@ -6,6 +6,8 @@
 \alias{lydemapr-package}
 \title{lydemapr: Mapping the Spread of Lycorma delicatula}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 This package contains aggregated, anonymized data on the presence/absence and population density of the Spotted Lanternfly (Lycorma delicatula) in the United States. The package contains functions to display the data through both table summaries and maps.
 }
 \seealso{
@@ -22,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Seba De Bona \email{sebastiano.debona@temple.edu}
   \item Matt Helmus \email{mrhelmus@temple.edu}
 }
 

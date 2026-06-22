@@ -16,7 +16,7 @@
 
 map_yearly <- function(year_type = "biological",
                        color_palette = "Reds",
-                       ncols = 2
+                       ncols = 4
 ){
 
   suppressMessages(require(tidyverse))
@@ -25,18 +25,13 @@ map_yearly <- function(year_type = "biological",
   suppressMessages(sf::sf_use_s2(FALSE))
 
 
+  ## Setting up ##
+  # First some preparations:
+
   ### Loading background maps ###
 
   # extracting a map of the states
-  states <- tigris::states() %>%
-    select(ID = NAME, geometry)
-
-  # only selecting contiguous US
-  states <- states %>%
-    dplyr::filter(!(ID %in% c("Alaska", "American Samoa",
-                              "Commonwealth of the Northern Mariana Islands",
-                              "Guam", "Hawaii","Puerto Rico",
-                              "United States Virgin Islands")))
+  suppressMessages(states <- sf::st_as_sf(maps::map("state", plot = FALSE, fill = TRUE)))
 
   ### Rarefying data ###
 
