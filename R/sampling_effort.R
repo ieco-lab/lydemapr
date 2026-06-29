@@ -40,6 +40,7 @@ sampling_effort <- function(data = lyde,
 
   obs <- lyde %>%
     dplyr::filter(collection_method != "individual_reporting") %>%
+    dplyr::distinct(bio_year, latitude, longitude, .keep_all = T) %>%
     dplyr::group_by(bio_year) %>%
     dplyr::summarize(presences = sum(lyde_present == TRUE, na.rm = TRUE),
                      presences_w_establishment = sum(lyde_present == TRUE & lyde_established == TRUE, na.rm = TRUE),
@@ -53,7 +54,7 @@ sampling_effort <- function(data = lyde,
 
   tab %>% dplyr::rename('Biological Year' = bio_year,
                         'Number of presences' = presences,
-                        'Numer of presences with confirmed etablishment' = presences_w_establishment,
+                        'Number of presences with confirmed establishment' = presences_w_establishment,
                         'Number of absences' = absences,
                         'Invaded area (km\u00B2)' = A,
                         'Invasion boundary length (km)' = P)

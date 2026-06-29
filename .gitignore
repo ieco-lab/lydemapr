@@ -18,3 +18,4 @@ docs
 /sandbox
 inst/doc
 vignettes/*.log
+.positai
