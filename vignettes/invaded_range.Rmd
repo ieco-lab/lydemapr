@@ -1,0 +1,47 @@
+---
+title: "Invaded Range"
+output: 
+  rmarkdown::html_vignette
+params:
+  show_code: TRUE
+author: 
+    - "Lilah Shtino^[Temple University, lilah.shtino@temple.edu]"
+    - "Matthew R. Helmus^[Temple University, mrhelmus@temple.edu]"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+vignette: >
+  %\VignetteIndexEntry{invaded_range}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setting figure files as png, include = F}
+# above, in the YAML parameters, we have defined want_code and 
+# export_figures, which will define echo and eval for the code chunks.
+# these parameters define whether code is to be displayed
+# in the vignettes or no, and whether the figures should be exported as images, respectively.
+knitr::opts_chunk$set(dev = "png", dpi = 100, echo = params$show_code)
+```
+
+
+```{r packages and data, include = params$show_code, message = FALSE, warning = FALSE}
+# attaching necessary packages
+library(lydemapr)
+library(sf)
+library(tidyverse)
+library(tigris)
+```
+
+```{r data by year and state, results = "asis", fig.cap = "Data by Biological year and State"}
+# data by Year and State
+knitr::kable(sampling_effort())
+```
+
+
+```{r , results = "asis", fig.cap = "Scale selection for α hulls by Youden's J"}
+scale_selection()
+```
+
+
+```{r pressure, echo=FALSE, fig.cap = "Output of the `map_alphahull()` function for the 2025 biological year"}
+map_alphahull(bio_year = 2025)
+```

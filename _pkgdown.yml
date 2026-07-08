@@ -17,10 +17,12 @@ navbar:
   left:
     - icon: fa-home fa-lg
       href: index.html
+    - text: "Introduction"
+      href: articles/introduction.html
+    - text: "Invaded Range"
+      href: articles/invaded_range.html
     - text: "Reference"
       href: reference/index.html
-    - text: "Introduction to lydemapr"
-      href: articles/introduction.html
 
 
   right:

@@ -113,8 +113,7 @@ scale_selection <- function(data = alpha_selection, return = plot) {
     ylim(c(0,1)) +
     xlab("False positive rate") +
     scale_color_continuous(type = "viridis", name = "α' (m)", trans = "log", breaks = c(2000, 10000, 50000, 150000)) +
-    theme_bw() +
-    ggtitle("Scale selection for α hulls by Youden's J")
+    theme_bw()
 
   }
 
