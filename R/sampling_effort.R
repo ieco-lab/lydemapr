@@ -19,7 +19,7 @@ sampling_effort <- function(data = lyde,
                             buffer_width = 10) {
 
   suppressMessages(require(sf))
-
+  suppressMessages(require(tidyverse))
   years <- sort(unique(data$bio_year))
 
 
