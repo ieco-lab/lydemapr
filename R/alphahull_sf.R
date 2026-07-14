@@ -13,7 +13,7 @@
 #' @param only_established A logical specifying whether only points with established SLF should be included (TRUE by default).
 #' @param buffer_width A necessary parameter for the construction of a shape from the hull (10 m recommended, so that is the default).
 #'
-#' @return A list of length 1 that contains the geometry for the alpha convex hull. To be used as an sf object or downloaded as a shapefile.
+#' @return An sf object containing the alpha convex hull polygon.
 #'
 #' @export
 #'
@@ -59,6 +59,11 @@ alphahull_sf <- function(data = lyde,
   # Remove any points with missing values
   data.keep <- data.keep[is.na(data.keep$latitude) == FALSE,]
   data.keep <- data.keep[is.na(data.keep$bio_year) == FALSE,]
+
+  # use the most recent biological year if bio_year is not supplied
+  if (is.null(bio_year)) {
+    bio_year <- max(data.keep$bio_year, na.rm = TRUE)
+  }
 
   # Limit to observations on or before the bio_year specified
   data.keep <- data.keep[data.keep$bio_year <= bio_year,]

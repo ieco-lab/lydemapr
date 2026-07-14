@@ -9,7 +9,7 @@ append_inat(path, established_states = TRUE, round = TRUE)
 \arguments{
 \item{path}{A character string that is the path to the csv file containing the downloaded iNaturalist data.}
 
-\item{established_states}{Filters out inat observations in states that do't have confirmed establishements yet.}
+\item{established_states}{Filters out inat observations in states that don't have confirmed establishments yet.}
 
 \item{round}{(logical) If TRUE, the latitude and longitude columns will have been rounded to the 1k grid. If FALSE, the coordinates will be raw, directly from iNaturalist.}
 }

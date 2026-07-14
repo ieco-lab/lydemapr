@@ -4,7 +4,7 @@
 #'
 #'
 #' @param data The lydemapr data file.
-#' @param bio_year Limits the data observations to those occurring on or before the biological year specified.
+#' @param bio_year Limits the data observations to those occurring on or before the biological year specified. Unless explicitly supplied, it defaults to the latest available year.
 #' @param alpha The coarseness of the hull drawing. The default is based on the cross validation work.
 #' @param use_public A logical specifying whether public reports should be included (FALSE by default).
 #' @param only_established A logical specifying whether only points with established SLF should be included (TRUE by default).
@@ -29,7 +29,7 @@
 #'
 
 map_alphahull <- function(data = lyde,
-                          bio_year = NULL,
+                          bio_year = max(data$bio_year, na.rm = T),
                           alpha = 19746.64,
                           use_public = FALSE,
                           only_established = TRUE,
@@ -89,7 +89,7 @@ map_alphahull <- function(data = lyde,
                                    alpha = alpha,
                                    bio_year = bio_year,
                                    use_public = use_public,
-                                   only_established = TRUE,
+                                   only_established = only_established,
                                    buffer_width = buffer_width) %>%
     sf::st_transform(crs = 4326)
 
@@ -109,12 +109,12 @@ map_alphahull <- function(data = lyde,
     xlim_coord <- NULL
     ylim_coord <- NULL
   } else if(zoom == "range"){
-    xlim_coord <- data %>% filter(lyde_established) %>% pull(longitude) %>% range()
+    xlim_coord <- data.keep %>% filter(lyde_established) %>% pull(longitude) %>% range()
     # tweaking to space map a little
     xlim_coord[1] <- xlim_coord[1] - diff(xlim_coord)*0.1
     xlim_coord[2] <- xlim_coord[2] + diff(xlim_coord)*0.1
 
-    ylim_coord <- data %>% filter(lyde_established) %>% pull(latitude) %>% range()
+    ylim_coord <- data.keep %>% filter(lyde_established) %>% pull(latitude) %>% range()
     # tweaking the other coordinate
     ylim_coord[1] <- ylim_coord[1] - diff(ylim_coord)*0.5
     ylim_coord[2] <- ylim_coord[2] + diff(ylim_coord)*0.5
@@ -144,9 +144,3 @@ map_alphahull <- function(data = lyde,
           legend.key=element_rect(fill=NA),
           panel.background = element_rect(fill = 'white', color = 'white'))
 }
-
-
-
-
-
-

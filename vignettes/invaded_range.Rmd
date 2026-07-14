@@ -15,13 +15,9 @@ vignette: >
 ---
 
 ```{r setting figure files as png, include = F}
-# above, in the YAML parameters, we have defined want_code and 
-# export_figures, which will define echo and eval for the code chunks.
-# these parameters define whether code is to be displayed
-# in the vignettes or no, and whether the figures should be exported as images, respectively.
+# The YAML parameter `show_code` controls whether code is shown (via `echo`) for the code chunks.
 knitr::opts_chunk$set(dev = "png", dpi = 100, echo = params$show_code)
 ```
-
 
 ```{r packages and data, include = params$show_code, message = FALSE, warning = FALSE}
 # attaching necessary packages
@@ -31,13 +27,15 @@ library(tidyverse)
 library(tigris)
 ```
 
-```{r data by year and state, results = "asis", fig.cap = "Data by Biological year and State"}
-# data by Year and State
+## Citation
+Keller, J., S De Bona, & MR Helmus. Leveraging spatial scale and temporal variation to track the spread rate of invasive spotted lanternflies (Lycorma delicatula). NeoBiota, 106: 287-307. https://doi.org/10.3897/neobiota.106.177041
+
+```{r sampling effort, results = "asis", fig.cap = "Sampling effort based on invaded range"}
 knitr::kable(sampling_effort())
 ```
 
 
-```{r , results = "asis", fig.cap = "Scale selection for α hulls by Youden's J"}
+```{r results = "asis", fig.cap = "Scale selection for α hulls by Youden's J"}
 scale_selection()
 ```
 

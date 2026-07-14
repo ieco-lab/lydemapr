@@ -27,7 +27,7 @@ alphahull_sf(
 \item{buffer_width}{A necessary parameter for the construction of a shape from the hull (10 m recommended, so that is the default).}
 }
 \value{
-A list of length 1 that contains the geometry for the alpha convex hull. To be used as an sf object or downloaded as a shapefile.
+An sf object containing the alpha convex hull polygon.
 }
 \description{
 The function takes SLF occurrence data and creates a boundary that defines their invaded range in the US.

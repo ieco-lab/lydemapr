@@ -150,7 +150,7 @@ The second function, `map_yearly()` allows the user to visualize the progression
 ```{r assigning density map, message = FALSE, results = "hide"}
 # running year-specific map
 # assigning object
-map_4 <- map_yearly(ncol = 4)
+map_4 <- map_yearly(ncols = 4)
 ```
 
 

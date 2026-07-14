@@ -6,7 +6,7 @@
 \usage{
 map_alphahull(
   data = lyde,
-  bio_year = NULL,
+  bio_year = max(data$bio_year, na.rm = T),
   alpha = 19746.64,
   use_public = FALSE,
   only_established = TRUE,
@@ -20,7 +20,7 @@ map_alphahull(
 \arguments{
 \item{data}{The lydemapr data file.}
 
-\item{bio_year}{Limits the data observations to those occurring on or before the biological year specified.}
+\item{bio_year}{Limits the data observations to those occurring on or before the biological year specified. Unless explicitly supplied, it defaults to the latest available year.}
 
 \item{alpha}{The coarseness of the hull drawing. The default is based on the cross validation work.}
 

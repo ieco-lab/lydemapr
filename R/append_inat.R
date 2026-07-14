@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @param path A character string that is the path to the csv file containing the downloaded iNaturalist data.
-#' @param established_states Filters out inat observations in states that do't have confirmed establishements yet.
+#' @param established_states Filters out inat observations in states that don't have confirmed establishments yet.
 #' @param round (logical) If TRUE, the latitude and longitude columns will have been rounded to the 1k grid. If FALSE, the coordinates will be raw, directly from iNaturalist.
 #'
 #' @return A cleaned tibble

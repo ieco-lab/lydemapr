@@ -1,11 +1,11 @@
-#' Plot the optimal alphahuhll values each year
+#' Plot the optimal alphahull values each year
 #'
-#' This function creates a figure to find the optimal alphahull value each year. It creates Fig. S2.1 from https://neobiota.pensoft.net/article/177041.
-#' (Precision/Recall Curve by resolution (and AUC-like too))
+#' This function creates a figure to find the optimal alphahull value each year. It creates a figure similar to Fig. S2.1 from https://neobiota.pensoft.net/article/177041.
 #'
 #' @param data The alpha_selection file.
 #'
-#' @return A plot that
+#'
+#' @return A ggplot that finds the preferred α’ for each year using Youden's J statistic.
 #'
 #' @export
 #'
@@ -14,12 +14,8 @@
 #'
 #' scale_selection()
 #' }
-#'
-#'
-#'
 
-
-scale_selection <- function(data = alpha_selection, return = plot) {
+scale_selection <- function(data = alpha_selection) {
 
   suppressMessages(require(sf))
   suppressMessages(require(dismo))

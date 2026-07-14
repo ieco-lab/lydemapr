@@ -2,26 +2,22 @@
 % Please edit documentation in R/scale_selection.R
 \name{scale_selection}
 \alias{scale_selection}
-\title{Plot the optimal alphahuhll values each year}
+\title{Plot the optimal alphahull values each year}
 \usage{
-scale_selection(data = alpha_selection, return = plot)
+scale_selection(data = alpha_selection)
 }
 \arguments{
 \item{data}{The alpha_selection file.}
 }
 \value{
-A plot that
+A ggplot that finds the preferred α’ for each year using Youden's J statistic.
 }
 \description{
-This function creates a figure to find the optimal alphahull value each year. It creates Fig. S2.1 from https://neobiota.pensoft.net/article/177041.
-(Precision/Recall Curve by resolution (and AUC-like too))
+This function creates a figure to find the optimal alphahull value each year. It creates a figure similar to Fig. S2.1 from https://neobiota.pensoft.net/article/177041.
 }
 \examples{
 \dontrun {
 
 scale_selection()
 }
-
-
-
 }

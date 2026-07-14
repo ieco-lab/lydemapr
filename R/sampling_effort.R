@@ -4,6 +4,7 @@
 #'
 #' @param data Unless otherwise specified, lydemapr::lyde
 #' @param alpha The coarseness of the hull drawing. Recommended value is based on cross validation work
+#' @param buffer_width A necessary parameter for the construction of a shape from the hull boundary (10 m recommended).
 #'
 #' @return A table
 #'
@@ -20,10 +21,8 @@ sampling_effort <- function(data = lyde,
 
   suppressMessages(require(sf))
   suppressMessages(require(tidyverse))
+
   years <- sort(unique(data$bio_year))
-
-
-  #hull_data <- data %>% distinct(bio_year, latitude, longitude, lyde_established, .keep_all = TRUE)
 
   # run alphahulls, and calculate the area and perimeter for each year
   alphahull_sizes <- purrr::map_dfr(years, function(yr) {
@@ -38,9 +37,8 @@ sampling_effort <- function(data = lyde,
                    A = round(as.numeric(st_area(hull))/1e6, 1),
                    P = round(as.numeric(st_length(st_boundary(hull)))/1000, 1))})
 
-  obs <- lyde %>%
+  obs <- data %>%
     dplyr::filter(collection_method != "individual_reporting") %>%
-    dplyr::distinct(bio_year, latitude, longitude, .keep_all = T) %>%
     dplyr::group_by(bio_year) %>%
     dplyr::summarize(presences = sum(lyde_present == TRUE, na.rm = TRUE),
                      presences_w_establishment = sum(lyde_present == TRUE & lyde_established == TRUE, na.rm = TRUE),

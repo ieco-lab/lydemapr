@@ -10,6 +10,8 @@ sampling_effort(data = lyde, alpha = 19746.64, buffer_width = 10)
 \item{data}{Unless otherwise specified, lydemapr::lyde}
 
 \item{alpha}{The coarseness of the hull drawing. Recommended value is based on cross validation work}
+
+\item{buffer_width}{A necessary parameter for the construction of a shape from the hull boundary (10 m recommended).}
 }
 \value{
 A table
