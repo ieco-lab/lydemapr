@@ -17,11 +17,6 @@
 
 scale_selection <- function(data = alpha_selection) {
 
-  suppressMessages(require(sf))
-  suppressMessages(require(dismo))
-  suppressMessages(require(blockCV))
-  suppressMessages(require(dbscan))
-  suppressMessages(require(reshape))
   suppressMessages(require(ggplot2))
 
   # Read in data
