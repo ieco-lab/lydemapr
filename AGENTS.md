@@ -4,7 +4,7 @@
 
 `lydemapr` is an R package that aggregates and anonymizes presence/absence and population density survey data for the Spotted Lanternfly (*Lycorma delicatula*, SLF) in the United States, and provides functions to visualize the spread of this invasive pest through maps and summaries.
 
-- **Package version:** 4.0.0
+- **Package version:** see `DESCRIPTION`
 - **License:** CC-BY
 - **R version requirement:** ≥ 4.0.0
 - **Maintainer:** Seba De Bona <sebastiano.debona@temple.edu>
@@ -140,6 +140,6 @@ The primary dataset `lyde` (and its rarefied counterpart `lyde_10k`) is a data f
 
 1. **Do not modify `NAMESPACE` directly.** It is fully managed by roxygen2 (`devtools::document()`).
 2. **Do not expose or commit raw (non-anonymized) survey data.** The bundled `lyde` and `lyde_10k` datasets are already anonymized; any new data additions must follow the same anonymization procedure.
-3. **Map functions can be slow.** `map_spread()` with `resolution = "1k"` operates on >658 000 rows. Tests and examples involving mapping should use `resolution = "10k"` or a small custom zoom region.
+3. **Map functions can be slow.** `map_spread()` with `resolution = "1k"` operates on >658,000 rows. Tests and examples involving mapping should use `resolution = "10k"` or a small custom zoom region.
 4. **The `download_data/` folder** contains versioned CSV exports and metadata for users who want the data without installing the package. Update it in sync with any data version bump.
 5. **Coordinate rounding** uses `DescTools::RoundTo()` with a decimal-degree step derived from Haversine distances — not a simple fixed decimal rounding — to match the geographic grid. Do not substitute `round()`.
