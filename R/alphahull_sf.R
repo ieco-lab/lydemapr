@@ -38,6 +38,7 @@ alphahull_sf <- function(data = lyde,
                          buffer_width = 10) {
 
   suppressMessages(require(sf))
+  suppressMessages(require(tidyverse))
   suppressMessages(require(alphahull))
   suppressMessages(require(tigris))
 

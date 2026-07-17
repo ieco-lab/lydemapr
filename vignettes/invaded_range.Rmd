@@ -14,7 +14,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setting figure files as png, include = F}
+```{r setting figure files as png, include = FALSE}
 # The YAML parameter `show_code` controls whether code is shown (via `echo`) for the code chunks.
 knitr::opts_chunk$set(dev = "png", dpi = 100, echo = params$show_code)
 ```

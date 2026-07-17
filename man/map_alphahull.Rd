@@ -6,7 +6,7 @@
 \usage{
 map_alphahull(
   data = lyde,
-  bio_year = max(data$bio_year, na.rm = T),
+  bio_year = max(data$bio_year, na.rm = TRUE),
   alpha = 19746.64,
   use_public = FALSE,
   only_established = TRUE,

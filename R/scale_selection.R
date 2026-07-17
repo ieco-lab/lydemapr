@@ -36,7 +36,9 @@ scale_selection <- function(data = alpha_selection) {
     }
 
   # Get year and alpha back
-  d2 <- cbind(d2, colsplit(d2$alpha_year, "_", c("alpha", "year")))
+  d2 <- tidyr::separate(d2, alpha_year, into = c("alpha", "year"), sep = "_", remove = FALSE)
+  d2$alpha <- as.numeric(d2$alpha)
+  d2$year <- as.integer(d2$year)
 
   # Calculate derived values
   d2$precision <- d2$TP/(d2$TP + d2$FP)

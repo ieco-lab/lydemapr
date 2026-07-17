@@ -6,6 +6,7 @@
 /docs
 Icon?
 docs
+/dev
 /vignettes/*.pdf
 /vignettes/*.png
 /download_data/older_data_versions/v1_2021/lyde_data_v1
