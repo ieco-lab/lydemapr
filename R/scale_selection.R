@@ -46,28 +46,18 @@ scale_selection <- function(data = alpha_selection) {
   d2$FPR <- d2$FP/(d2$FP + d2$TN)
   d2$sensitivity <- d2$TP/(d2$TP + d2$FN)
 
-  # Plot
-  p.roc <- ggplot(d2, aes(x = FPR, y = sensitivity))
-  p.roc +
-    geom_point(aes(color = alpha)) +
-    facet_wrap(~year) +
-    geom_abline(slope = 1, intercept = 0, lty = "dashed") +
-    xlim(c(0, 1)) +
-    ylim(c(0, 1)) +
-    scale_color_continuous(trans = "log")
-
   # Now we select the optimal values
   # For the AUC-style plot, Youden's J measures the distance from the 1:1 line
   d2$youdenJ <- d2$TP/(d2$TP + d2$FN) + d2$TN/(d2$TN + d2$FP) - 1
 
   #Summarize to years
   d3 <- data.frame(year = unique(d2$year), youdenJ = NA, alpha_sel = NA)
-  for(i in 1:length(d3[,1])){
-    data.subset <- d2[d2$year == d3$year[i],]
-    d3$youdenJ[i] <- max(data.subset$youdenJ)
-    d3$alpha_sel[i] <- d2$alpha[d2$youdenJ == d3$youdenJ[i]]
-    }
-
+  for (i in seq_len(nrow(d3))) {
+    data.subset <- d2[d2$year == d3$year[i], ]
+    best <- which.max(data.subset$youdenJ)
+    d3$youdenJ[i] <- data.subset$youdenJ[best]
+    d3$alpha_sel[i] <- data.subset$alpha[best]
+  }
 
   # Alternatively, we can consider g-mean
   # This is equal to sqrt(Sensitivity * Specificity)
@@ -77,11 +67,12 @@ scale_selection <- function(data = alpha_selection) {
 
   d3$alpha_sel_gmean <- NA
   d3$gmean <- NA
-  for(i in 1:length(d3[,1])){
-    data.subset <- d2[d2$year == d3$year[i],]
-    d3$gmean[i] <- max(data.subset$gmean)
-    d3$alpha_sel_gmean[i] <- d2$alpha[d2$gmean == d3$gmean[i]]
-    }
+  for (i in seq_len(nrow(d3))) {
+    data.subset <- d2[d2$year == d3$year[i], ]
+    best <- which.max(data.subset$gmean)
+    d3$gmean[i] <- data.subset$gmean[best]
+    d3$alpha_sel_gmean[i] <- data.subset$alpha[best]
+  }
 
   #####################
   # Highlight the best-performing value in the ROC space plots
