@@ -10,10 +10,9 @@
 #' @export
 #'
 #' @examples
-#' \dontrun {
-#'
+#' \dontrun{
 #' scale_selection()
-#' }
+#'}
 
 scale_selection <- function(data = alpha_selection) {
 
@@ -26,6 +25,8 @@ scale_selection <- function(data = alpha_selection) {
 
   # First, we need to sum by fold
   d$alpha_year <- paste(d$alpha, d$year, sep = "_")
+  d2 <- data.frame(alpha_year = unique(d$alpha_year), FP = NA, TP = NA, FN = NA, TN = NA)
+
   for (i in seq_len(nrow(d2))) {
     d2$FP[i] <- sum(d$FP[d$alpha_year == d2$alpha_year[i]])
     d2$FN[i] <- sum(d$FN[d$alpha_year == d2$alpha_year[i]])

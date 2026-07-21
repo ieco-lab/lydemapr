@@ -19,13 +19,12 @@
 #' @export
 #'
 #' @examples
-#' \dontrun {
-#'
+#' \dontrun{
 #' map_alphahull(bio_year = 2025)
 #'
 #' map_alphahull(use_public = TRUE, bio_year = 2022, zoom = "full")
 #'
-#' }
+#'}
 #'
 
 map_alphahull <- function(data = lyde,
