@@ -26,14 +26,12 @@ scale_selection <- function(data = alpha_selection) {
 
   # First, we need to sum by fold
   d$alpha_year <- paste(d$alpha, d$year, sep = "_")
-  d2 <- data.frame(alpha_year = unique(d$alpha_year), FP = NA, TP = NA, FN = NA, TN = NA)
-
-  for(i in 1:length(d2[,1])){
+  for (i in seq_len(nrow(d2))) {
     d2$FP[i] <- sum(d$FP[d$alpha_year == d2$alpha_year[i]])
     d2$FN[i] <- sum(d$FN[d$alpha_year == d2$alpha_year[i]])
     d2$TP[i] <- sum(d$TP[d$alpha_year == d2$alpha_year[i]])
     d2$TN[i] <- sum(d$TN[d$alpha_year == d2$alpha_year[i]])
-    }
+  }
 
   # Get year and alpha back
   d2 <- tidyr::separate(d2, alpha_year, into = c("alpha", "year"), sep = "_", remove = FALSE)
