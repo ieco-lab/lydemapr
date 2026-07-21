@@ -36,34 +36,25 @@ map_spread <- function(resolution = "10k",
 if(print_message){
   print("Please be patient: the large dataset might cause the map to load slowly")
 }
-## Setting up ##
-# First some preparations:
+  ## Setting up ##
+  # First some preparations:
 
-### Loading background maps ###
+  ### Loading background maps ###
 
-# extracting a map of the states
-suppressMessages(
-  states <- tigris::states() %>%
-    select(ID = NAME, geometry)
-)
-# finding centroids for label positions
-suppressWarnings(
-  states <- cbind(states, st_coordinates(st_centroid(states)))
-)
-# only selecting contiguous US
-states <- states %>%
-  dplyr::filter(!(ID %in% c("Alaska", "American Samoa",
-                            "Commonwealth of the Northern Mariana Islands",
-                            "Guam", "Hawaii","Puerto Rico",
-                            "United States Virgin Islands")))
-# making table key for state 2-letter abbreviations
-state_abbr <- tibble(state.name = state.name,
-                     state.abb) %>%
-  dplyr::left_join(tibble(ID = states$ID), ., by = c(ID = "state.name")) %>%
-  dplyr::mutate(state.abb = tidyr::replace_na(state.abb, ""))
-# adding 2-letter codes to state sf
-states$code <- state_abbr$state.abb
+  # extracting a map of the states
+  suppressMessages(states <- sf::st_as_sf(maps::map("state", plot = FALSE, fill = TRUE)))
 
+  # looking up state abbreviations
+  state_lookup <- dplyr::tibble(
+    ID    = tolower(state.name),
+    abbr  = state.abb
+  )
+
+  # adding abbreviations and finding centroids of states to place labels of map
+  suppressWarnings(states <- states %>%
+                     dplyr::left_join(state_lookup, by = "ID") %>%
+                     cbind(sf::st_coordinates(sf::st_centroid(states))) %>%
+                     filter(!is.na(abbr)))
 
 ### Selecting appropriate dataset based on resolution specified ###
 
@@ -148,7 +139,7 @@ if(resolution == "1k"){
                  )),
                aes(x = longitude, y = latitude, col = bio_year),
                shape = 19, size =0.8) +
-    geom_text(data = states, aes(X, Y, label = code), size = 4.5) +
+    geom_text(data = states, aes(X, Y, label = abbr), size = 4.5) +
     scale_color_viridis_d(option = color_palette, direction = 1) +
     labs(x = "Longitude", y = "Latitude", col = "Year") +
     guides(colour = guide_legend(override.aes = list(size = 5,
@@ -172,7 +163,7 @@ if(resolution == "1k"){
                    forcats::as_factor(bio_year)
                    )),
                aes(x = longitude, y = latitude, fill = bio_year)) +
-    geom_text(data = states, aes(X, Y, label = code), size = 4.5) +
+    geom_text(data = states, aes(X, Y, label = abbr), size = 4.5) +
     scale_fill_viridis_d(option = "plasma", direction = 1) +
     labs(x = "Longitude", y = "Latitude", fill = "Year") +
     guides(colour = guide_legend(override.aes = list(size = 5,

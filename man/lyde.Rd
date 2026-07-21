@@ -5,7 +5,7 @@
 \alias{lyde}
 \title{Spatial dataset for SLF presence at 1km resolution}
 \format{
-A dataframe with 658,390 observations and 14 variables
+A large dataframe
 \describe{
   \item{source}{Character variable defining the source of the data.}
   \item{year}{Integer value defining the calendar year when the information was collected.}

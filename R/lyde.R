@@ -3,7 +3,7 @@
 #' Dataset produced by aggregating and anonymizing several sources, containing presence/absence
 #' data for SLF in the United States, as well as establishment status and popoulation density
 #'
-#'@format A dataframe with 658,390 observations and 14 variables
+#'@format A large dataframe
 #' \describe{
 #'   \item{source}{Character variable defining the source of the data.}
 #'   \item{year}{Integer value defining the calendar year when the information was collected.}

@@ -6,7 +6,7 @@ The package `lydemapr` combines survey datasets produced by different agencies i
 
 More information on how the package is structured and maintained can be found in the associated article De Bona et al. 2023 published in NeoBiota (see full citation below).
 
-**IMPORTANT**: the current version of the package (v4) contains data beyond what described in the article, extending through 2025. All iNaturalist data was removed and a function, `append_inat()`, was added to allow the user to optionally include their own downloaded iNaturalist data.
+**IMPORTANT**: the current version of the package (v4.1.0) contains data beyond what described in the article, extending through 2025. It also includes the necessary functions to delineate the alphahull invasion boundary (ie `alphahull_sf()`, `map_alphahull()`, `sampling_effort()`, and `scale_selection()`). For details on the use of these functions, see `invaded_range.Rmd` or the "Invaded Range" tab of https://ieco-lab.github.io/lydemapr/.
 
 #### Citation
 De Bona, S., L. Barringer, P. Kurtz, J. Losiewicz, G.R. Parra, & M.R. Helmus. lydemapr: an R package to track the spread of the invasive spotted lanternfly (*Lycorma delicatula*, White 1845) (Hemiptera, Fulgoridae) in the United States. NeoBiota 86: 151-168. [https://doi.org/10.3897/neobiota.86.101471](https://doi.org/10.3897/neobiota.86.101471)
