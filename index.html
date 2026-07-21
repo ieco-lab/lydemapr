@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">lydemapr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">4.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">4.1.0</span>
       </span>
     </div>
 
@@ -47,10 +47,13 @@
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="articles/introduction.html">Introduction</a>
 </li>
 <li>
-  <a href="articles/introduction.html">Introduction to lydemapr</a>
+  <a href="articles/invaded_range.html">Invaded Range</a>
+</li>
+<li>
+  <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -83,7 +86,7 @@
 <p>The Spotted Lanternfly (<em>Lycorma delicatula</em>, SLF) is an invasive pest species in the United States, first discovered in Berks County, PA, in 2014. Since its first discovery, several agencies (with the Pennsylvania Dept. of Agriculture, and the US Dept. of Agriculture in a leading role) have taken up the task to monitor and control SLF populations.</p>
 <p>The package <code>lydemapr</code> combines survey datasets produced by different agencies in the United States (at the local, state, and federal level) into a single aggregated and anonymized dataset. This includes information on the approximate location where each survey was conducted, the provenance of the data point, as well as biologically relevant results of the surveys (presence/absence of the Spotted Lanternfly, presence of an established population, and estimated population density of this pest).</p>
 <p>More information on how the package is structured and maintained can be found in the associated article De Bona et al. 2023 published in NeoBiota (see full citation below).</p>
-<p><strong>IMPORTANT</strong>: the current version of the package (v4) contains data beyond what described in the article, extending through 2025. All iNaturalist data was removed and a function, <code><a href="reference/append_inat.html">append_inat()</a></code>, was added to allow the user to optionally include their own downloaded iNaturalist data.</p>
+<p><strong>IMPORTANT</strong>: the current version of the package (v4.1.0) contains data beyond what described in the article, extending through 2025. It also includes the necessary functions to delineate the alphahull invasion boundary (ie <code><a href="reference/alphahull_sf.html">alphahull_sf()</a></code>, <code><a href="reference/map_alphahull.html">map_alphahull()</a></code>, <code><a href="reference/sampling_effort.html">sampling_effort()</a></code>, and <code><a href="reference/scale_selection.html">scale_selection()</a></code>). For details on the use of these functions, see <code>invaded_range.Rmd</code> or the “Invaded Range” tab of <a href="https://ieco-lab.github.io/lydemapr/" class="external-link uri">https://ieco-lab.github.io/lydemapr/</a>.</p>
 <div class="section level4">
 <h4 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h4>
@@ -181,7 +184,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
