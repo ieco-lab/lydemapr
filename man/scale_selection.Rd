@@ -16,8 +16,7 @@ A ggplot that finds the preferred α’ for each year using Youden's J statistic
 This function creates a figure to find the optimal alphahull value each year. It creates a figure similar to Fig. S2.1 from https://neobiota.pensoft.net/article/177041.
 }
 \examples{
-\dontrun {
-
+\dontrun{
 scale_selection()
 }
 }

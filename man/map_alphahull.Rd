@@ -43,8 +43,7 @@ A ggplot map of the alpha convex hull on top of the lyde data.
 The function maps a dataset of SLF occurrences and a polygon delineating their invaded range.
 }
 \examples{
-\dontrun {
-
+\dontrun{
 map_alphahull(bio_year = 2025)
 
 map_alphahull(use_public = TRUE, bio_year = 2022, zoom = "full")
