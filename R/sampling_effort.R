@@ -26,12 +26,12 @@ sampling_effort <- function(data = lyde,
 
   # run alphahulls, and calculate the area and perimeter for each year
   alphahull_sizes <- purrr::map_dfr(years, function(yr) {
-    hull <- lydemapr::alphahull_sf(data = data,
-                         alpha = alpha,
-                         bio_year = yr,
-                         use_public = FALSE,
-                         only_established = TRUE,
-                         buffer_width = buffer_width)
+    hull <- suppressMessages(lydemapr::alphahull_sf(data = data,
+                                                    alpha = alpha,
+                                                    bio_year = yr,
+                                                    use_public = FALSE,
+                                                    only_established = TRUE,
+                                                    buffer_width = buffer_width))
 
     tibble::tibble(bio_year = yr,
                    A = round(as.numeric(st_area(hull))/1e6, 1),
