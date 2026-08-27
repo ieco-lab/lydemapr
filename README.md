@@ -1,5 +1,7 @@
 <img src="man/figures/logo.svg" align="right" width="14%" />
 
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 The Spotted Lanternfly (*Lycorma delicatula*, SLF) is an invasive pest species in the United States, first discovered in Berks County, PA, in 2014. Since its first discovery, several agencies (with the Pennsylvania Dept. of Agriculture, and the US Dept. of Agriculture in a leading role) have taken up the task to monitor and control SLF populations.
 
 The package `lydemapr` combines survey datasets produced by different agencies in the United States (at the local, state, and federal level) into a single aggregated and anonymized dataset. This includes information on the approximate location where each survey was conducted, the provenance of the data point, as well as biologically relevant results of the surveys (presence/absence of the Spotted Lanternfly, presence of an established population, and estimated population density of this pest).
@@ -11,6 +13,9 @@ More information on how the package is structured and maintained can be found in
 #### Citation
 De Bona, S., L. Barringer, P. Kurtz, J. Losiewicz, G.R. Parra, & M.R. Helmus. lydemapr: an R package to track the spread of the invasive spotted lanternfly (*Lycorma delicatula*, White 1845) (Hemiptera, Fulgoridae) in the United States. NeoBiota 86: 151-168. [https://doi.org/10.3897/neobiota.86.101471](https://doi.org/10.3897/neobiota.86.101471)
 
+#### License
+
+This project (both the code and the associated dataset) is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). See [`LICENSE.md`](LICENSE.md) for the full text. You are free to share and adapt this material for any purpose, including commercially, as long as you give appropriate attribution.
 
 ### How to use this project
 
